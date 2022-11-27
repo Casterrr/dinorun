@@ -8,4 +8,13 @@ Além dos obstáculos, o dinossauro poderá coletar "powerups", itens que vão d
 
 O jogador poderá fazer pontuações maiores ao coletar esses "powerups" e também ao coletar moedas, que serão geradas de maneira aleatória pelo caminho.
 
+## Minimum Viable Product
+Aqui estão as funções essenciais para que o jogo possa funcionar:
+- Iniciar: Deve ser possível iniciar a jogatina por algum comando de entrada.
+- Pular: O dinossauro deve poder pular, para conseguir desviar dos obstáculos e coletar "powerups" e moedas.
+- Desafio: Obstáculos colidíveis devem ser gerados, para que o jogo possa ter um fim.
+- Terminar: O dinossauro deve morrer ao colidir com um dos obstáculos, encerrando assim a jogatina.
+- Pontuação: A contagem de pontos deverá aumentar conforme o tempo de sobrevivência do dinossauro e quantidade de moedas e "powerups" coletados.
+- Sumário: Ao encerrar a jogatina, a pontuação deve ser exibida.
+
 
