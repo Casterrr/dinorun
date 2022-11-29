@@ -18,9 +18,9 @@ Aqui estão as funções essenciais para que o jogo possa funcionar:
 - Sumário: Ao encerrar a jogatina, a pontuação deve ser exibida.
 
 ## Integrantes
- - Carlos Raylon;
- - Emesson Horácio dos Santos;
- - Lucas Matheus Vieira Lúcio;
- - Maelton Lima dos Santos.
+ - Carlos Raylon
+ - Emesson Horácio dos Santos
+ - Lucas Matheus Vieira Lúcio
+ - Maelton Lima dos Santos
 
 
