@@ -17,4 +17,10 @@ Aqui estão as funções essenciais para que o jogo possa funcionar:
 - Pontuação: A contagem de pontos deverá aumentar conforme o tempo de sobrevivência do dinossauro e quantidade de moedas e "powerups" coletados.
 - Sumário: Ao encerrar a jogatina, a pontuação deve ser exibida.
 
+## Integrantes
+ - Carlos Raylon
+ - Emesson Horácio dos Santos
+ - Lucas Matheus Vieira Lúcio
+ - Maelton Lima dos Santos
+
 
