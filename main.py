@@ -53,9 +53,11 @@ def draw_surfaces ():
 
 
 def keep_obstacle_in_window(obstacle_rectangle):
-    obstacle_rectangle.left -= 1
+    obstacle_rectangle.left -= 10
     if obstacle_rectangle.right <= 0:
         obstacle_rectangle.left = 800
+
+dino_gravity = 0
 
 while True:
     ## Para cada evento disparado
@@ -64,6 +66,11 @@ while True:
         if event.type == py.QUIT:
             py.quit()
             exit()
+        
+        if event.type == py.KEYDOWN:
+            if dino_rectangle.bottom == 310:
+                if event.key == py.K_UP:
+                    dino_gravity = -20
 
     ## Coloca o plano na janela
     draw_surfaces()
@@ -71,7 +78,15 @@ while True:
     ## Volta a posição da pedra quando ela atravessa a borda da janela.
     keep_obstacle_in_window(stone_rectangle)
 
+    dino_gravity += 1
+
+
+    dino_rectangle.y += dino_gravity
+
+
+    if dino_rectangle.bottom > 310:
+        dino_rectangle.bottom = 310
     ## atualiza a tela
     py.display.update()
     ## define quantos quadros serão exibidos a cada segundo.
-    clock.tick(120)
+    clock.tick(60)
