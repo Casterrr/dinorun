@@ -1,55 +1,55 @@
-## Importação da biblioteca
+## Importação da biblioteca.
 import pygame as py;
 from sys import exit
 
-## Inicia o pygame
+#Inciializando jogo.
 py.init()
 
-## Diz o tamanho da janela
-screen = py.display.set_mode((800, 400))
-
-## Altera o nome do jogo
-py.display.set_caption('Dinorun')
-
-## Usado pra definir o FPS posteriormente
+#Instânciando classe clock, para controle de FPS.
 clock = py.time.Clock()
 
-## Define uma fonte de texto
-# test_font = py.font.SysFont("chiller", 50)
-test_font = py.font.Font("assets/font/PixelType.ttf", 50)
+#Definições do tamanho da tela do jogo.
+dimensoes = largura, altura = 800, 400
+tela = py.display.set_mode(dimensoes)
 
-## Define um plano advindo de uma imagem, que é convertida pra um formato que o pygame entende melhor.
-sky_surface = py.image.load('assets/graphics/Blue-Sky.png').convert_alpha()
-ground_surface = py.image.load('assets/graphics/Green-Ground.png').convert_alpha()
+#Definindo legenda do jogo.
+py.display.set_caption('Dinorun')
 
-## Define um plano para a fonte, onde o primeiro parâmetro é o texto, o segundo é um boolean pro anti-aliasing, e o terceiro é a cor do texto.
-text_surface = test_font.render("Dinorun", False, 'Green')
+#Definindo fonte do jogo.
+fonte_do_jogo = py.font.Font("assets/font/PixelType.ttf", 50)
+
+#Criando superfície com texto.
+cabecalho_do_jogo = fonte_do_jogo.render("Dinorun", False, 'Green')
+
+#Importando imagens do jogo.
+sky_image = py.image.load('assets/graphics/Blue-Sky.png').convert_alpha()
+ground_image = py.image.load('assets/graphics/Green-Ground.png').convert_alpha()
 
 
-stone_surface = py.image.load('assets/graphics/Stone/stone.png').convert_alpha()
+stone_image = py.image.load('assets/graphics/Stone/stone.png').convert_alpha()
 stone_x_pos = 800
 stone_y_pos = 315
 
-dino_surface = py.image.load('assets/graphics/Dinosaur/dinosaur.png').convert_alpha()
+dino_image = py.image.load('assets/graphics/Dinosaur/dinosaur.png').convert_alpha()
 dino_x_pos = 80
 dino_y_pos = 310
 
 ## Pega a imagem e gera o retângulo com as dimensões dela. Toda imagem tem sua posição (x,y), originalmente, no canto superior esquerdo
 #  dela.
 ## Porém, ao gerar o retângulo dela, dá pra mudar onde será a posição (x,y) dela. Por exemplo, pro centro seria "center".
-dino_rectangle = dino_surface.get_rect(midbottom = (dino_x_pos, dino_y_pos))
-stone_rectangle = stone_surface.get_rect(midbottom = (stone_x_pos, stone_y_pos))
+dino_rectangle = dino_image.get_rect(midbottom = (dino_x_pos, dino_y_pos))
+stone_rectangle = stone_image.get_rect(midbottom = (stone_x_pos, stone_y_pos))
 
 
-def draw_surfaces ():
-    screen.blit(sky_surface, (0, 0))
-    screen.blit(ground_surface, (0, 300))
-    screen.blit(text_surface, (20, 20))
+def draw_images ():
+    tela.blit(sky_image, (0, 0))
+    tela.blit(ground_image, (0, 300))
+    tela.blit(cabecalho_do_jogo, (20, 20))
 
     ## Aqui a posição (x,y) da pedra é a mesma do retângulo gerado pelas dimensões dela.
-    screen.blit(stone_surface, stone_rectangle)
+    tela.blit(stone_image, stone_rectangle)
     ## Aqui a posição (x,y) do dinossauro é a mesma do retângulo gerado pelas dimensões dele.
-    screen.blit(dino_surface, dino_rectangle)
+    tela.blit(dino_image, dino_rectangle)
 
 
 def keep_obstacle_in_window(obstacle_rectangle):
@@ -58,20 +58,18 @@ def keep_obstacle_in_window(obstacle_rectangle):
         obstacle_rectangle.left = 800
 
 while True:
-    ## Para cada evento disparado
     for event in py.event.get():
-        ## verifique se o tipo dele é do tipo "SAIR" (fechar o jogo)
         if event.type == py.QUIT:
             py.quit()
             exit()
 
-    ## Coloca o plano na janela
-    draw_surfaces()
+    #Insere imagens na tela.
+    draw_images()
 
-    ## Volta a posição da pedra quando ela atravessa a borda da janela.
+    #Volta a posição da pedra quando ela atravessa a borda da tela.
     keep_obstacle_in_window(stone_rectangle)
 
-    ## atualiza a tela
-    py.display.update()
-    ## define quantos quadros serão exibidos a cada segundo.
+    #Atualiza componentes da tela.
+    py.display.flip()
+    #Define FPS (Frames per Second ou Quadros por Segundo).
     clock.tick(120)
