@@ -1,4 +1,3 @@
-## Importação da biblioteca.
 import pygame as py;
 from sys import exit
 
@@ -15,7 +14,7 @@ tela = py.display.set_mode(dimensoes)
 #Definindo legenda do jogo.
 py.display.set_caption('Dinorun')
 
-#Definindo fonte do jogo.
+#Declarando variável com tipo de fonte do jogo.
 fonte_do_jogo = py.font.Font("assets/font/PixelType.ttf", 50)
 
 #Criando superfície com texto.
@@ -53,15 +52,22 @@ def draw_images ():
 
 
 def keep_obstacle_in_window(obstacle_rectangle):
-    obstacle_rectangle.left -= 1
+    obstacle_rectangle.left -= 10
     if obstacle_rectangle.right <= 0:
         obstacle_rectangle.left = 800
+
+dino_gravity = 0
 
 while True:
     for event in py.event.get():
         if event.type == py.QUIT:
             py.quit()
             exit()
+        
+        if event.type == py.KEYDOWN:
+            if dino_rectangle.bottom == 310:
+                if event.key == py.K_UP:
+                    dino_gravity = -20
 
     #Insere imagens na tela.
     draw_images()
@@ -69,7 +75,15 @@ while True:
     #Volta a posição da pedra quando ela atravessa a borda da tela.
     keep_obstacle_in_window(stone_rectangle)
 
-    #Atualiza componentes da tela.
+    dino_gravity += 1
+
+    dino_rectangle.y += dino_gravity
+
+    if dino_rectangle.bottom > 310:
+        dino_rectangle.bottom = 310
+
+    #Atualiza todos os componentes da tela.
     py.display.flip()
-    #Define FPS (Frames per Second ou Quadros por Segundo).
-    clock.tick(120)
+
+    #Define o FPS (Frames per Second - Quadros por Segundo) do jogo.
+    clock.tick(60)
