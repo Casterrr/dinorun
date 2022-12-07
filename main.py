@@ -33,25 +33,30 @@ dino_image = py.image.load('assets/graphics/Dinosaur/dinosaur.png').convert_alph
 dino_x_pos = 80
 dino_y_pos = 310
 
-## Pega a imagem e gera o retângulo com as dimensões dela. Toda imagem tem sua posição (x,y), originalmente, no canto superior esquerdo
-#  dela.
-## Porém, ao gerar o retângulo dela, dá pra mudar onde será a posição (x,y) dela. Por exemplo, pro centro seria "center".
+#Gerando retângulos para cada imagem a partir de suas dimensões, e determinando seus pontos no espaço.
 dino_rectangle = dino_image.get_rect(midbottom = (dino_x_pos, dino_y_pos))
 stone_rectangle = stone_image.get_rect(midbottom = (stone_x_pos, stone_y_pos))
 
 
 def draw_images ():
+    '''
+    Adiciona imagens do jogo sobre a tela principal.
+    '''
+
     tela.blit(sky_image, (0, 0))
     tela.blit(ground_image, (0, 300))
     tela.blit(cabecalho_do_jogo, (20, 20))
 
-    ## Aqui a posição (x,y) da pedra é a mesma do retângulo gerado pelas dimensões dela.
+    #Variáveis _rectangle utilizadas como tupla de coordenadas.
     tela.blit(stone_image, stone_rectangle)
-    ## Aqui a posição (x,y) do dinossauro é a mesma do retângulo gerado pelas dimensões dele.
     tela.blit(dino_image, dino_rectangle)
 
 
-def keep_obstacle_in_window(obstacle_rectangle):
+def move_obstacle_in_window(obstacle_rectangle):
+    '''
+    Responsável pelo movimento constante dos obstáculos dentro da tela do jogo.
+    '''
+    
     obstacle_rectangle.left -= 10
     if obstacle_rectangle.right <= 0:
         obstacle_rectangle.left = 800
@@ -69,11 +74,8 @@ while True:
                 if event.key == py.K_UP:
                     dino_gravity = -20
 
-    #Insere imagens na tela.
     draw_images()
-
-    #Volta a posição da pedra quando ela atravessa a borda da tela.
-    keep_obstacle_in_window(stone_rectangle)
+    move_obstacle_in_window(stone_rectangle)
 
     dino_gravity += 1
 
