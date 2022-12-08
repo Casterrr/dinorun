@@ -17,8 +17,9 @@ py.display.set_caption('Dinorun')
 #Declarando variável com tipo de fonte do jogo.
 fonte_do_jogo = py.font.Font("assets/font/PixelType.ttf", 50)
 
-#Criando superfície com texto.
+#Criando superfícies com texto.
 cabecalho_do_jogo = fonte_do_jogo.render("Dinorun", False, 'Green')
+game_over_text = fonte_do_jogo.render("Game Over", False, 'Black')
 
 #Importando imagens do jogo.
 sky_image = py.image.load('assets/graphics/Blue-Sky.png').convert_alpha()
@@ -72,6 +73,15 @@ def dino_jump(dino_rect, dino_gravity):
 
 gravity = int()
 
+def dino_end_game(dino_rect, *obstacle_rectangles):
+    '''
+    Finaliza o jogo se ouver colisão entre o dinossauro e um obstáculo.
+    '''
+    
+    for obstacle in obstacle_rectangles:
+        if dino_rect.colliderect(obstacle):
+            return True
+
 while True:
     for event in py.event.get():
         if event.type == py.QUIT:
@@ -83,15 +93,19 @@ while True:
                 if event.key == py.K_UP:
                     gravity = -20
 
-    draw_images()
-    move_obstacle_in_window(stone_rectangle)
+    if not dino_end_game(dino_rectangle, stone_rectangle):
+        draw_images()
+        move_obstacle_in_window(stone_rectangle)
     
-    #Efeito de pulo do dinossauro na tela.
-    dino_jump(dino_rectangle, gravity)
-    gravity += 1
+        #Efeito de pulo do dinossauro na tela.
+        dino_jump(dino_rectangle, gravity)
+        gravity += 1
 
-    #Atualiza todos os componentes da tela.
-    py.display.flip()
+        #Atualiza todos os componentes da tela.
+        py.display.flip()
 
-    #Define o FPS (Frames per Second - Quadros por Segundo) do jogo.
-    clock.tick(60)
+        #Define o FPS (Frames per Second - Quadros por Segundo) do jogo.
+        clock.tick(60)
+    else:
+        tela.blit(game_over_text, (325, 50))
+        py.display.flip()
