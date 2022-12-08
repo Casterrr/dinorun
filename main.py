@@ -51,7 +51,6 @@ def draw_images ():
     tela.blit(stone_image, stone_rectangle)
     tela.blit(dino_image, dino_rectangle)
 
-
 def move_obstacle_in_window(obstacle_rectangle):
     '''
     Responsável pelo movimento constante dos obstáculos dentro da tela do jogo.
@@ -61,7 +60,17 @@ def move_obstacle_in_window(obstacle_rectangle):
     if obstacle_rectangle.right <= 0:
         obstacle_rectangle.left = 800
 
-dino_gravity = 0
+def dino_jump(dino_rect, dino_gravity):
+    '''
+    Responsável pelo efeito de pulo do dinossaura na tela.
+    '''
+
+    dino_rect.y += dino_gravity
+
+    if dino_rect.bottom > 310:
+        dino_rect.bottom = 310
+
+gravity = int()
 
 while True:
     for event in py.event.get():
@@ -72,17 +81,14 @@ while True:
         if event.type == py.KEYDOWN:
             if dino_rectangle.bottom == 310:
                 if event.key == py.K_UP:
-                    dino_gravity = -20
+                    gravity = -20
 
     draw_images()
     move_obstacle_in_window(stone_rectangle)
-
-    dino_gravity += 1
-
-    dino_rectangle.y += dino_gravity
-
-    if dino_rectangle.bottom > 310:
-        dino_rectangle.bottom = 310
+    
+    #Efeito de pulo do dinossauro na tela.
+    dino_jump(dino_rectangle, gravity)
+    gravity += 1
 
     #Atualiza todos os componentes da tela.
     py.display.flip()
