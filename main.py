@@ -15,11 +15,14 @@ tela = py.display.set_mode(dimensoes)
 py.display.set_caption('Dinorun')
 
 #Declarando variável com tipo de fonte do jogo.
-fonte_do_jogo = py.font.Font("assets/fonts/PixelType.ttf", 50)
+def fonte_do_jogo(tamanho_da_fonte):
+    return py.font.Font("assets/fonts/PixelType.ttf", tamanho_da_fonte)
+    
 fonte_fim_do_jogo = py.font.Font("assets/fonts/game_over.ttf", 200)
 
 #Criando superfícies com texto.
-cabecalho_do_jogo = fonte_do_jogo.render("Dinorun", False, '#44b528')
+cabecalho_do_jogo = fonte_do_jogo(50).render("Dinorun", False, '#44b528')
+restart_text = fonte_do_jogo(30).render("- Pressione qualquer tecla para reiniciar o jogo -", False, 'Yellow')
 game_over_text = fonte_fim_do_jogo.render("Game Over", False, 'Red')
 
 #Importando imagens do jogo.
@@ -82,6 +85,14 @@ def dino_end_game(dino_rect, *obstacle_rectangles):
     for obstacle in obstacle_rectangles:
         if dino_rect.colliderect(obstacle):
             return True
+def restart_game(obstacle_rectangle):
+    obstacle_rectangle.left = 800
+
+def show_game_over_screen(game_over_text):
+    tela.fill('#112e0a')
+    tela.blit(game_over_text, (200, -20))
+    tela.blit(restart_text, (190, 370))
+    py.display.flip()
 
 while True:
     for event in py.event.get():
@@ -93,6 +104,11 @@ while True:
             if dino_rectangle.bottom == 310:
                 if event.key == py.K_UP:
                     gravity = -20
+        
+        if event.type == py.KEYDOWN:
+            if dino_end_game(dino_rectangle, stone_rectangle):
+                restart_game(stone_rectangle)
+
 
     if not dino_end_game(dino_rectangle, stone_rectangle):
         draw_images()
@@ -108,6 +124,4 @@ while True:
         #Define o FPS (Frames per Second - Quadros por Segundo) do jogo.
         clock.tick(60)
     else:
-        tela.fill('#112e0a')
-        tela.blit(game_over_text, (200, -20))
-        py.display.flip()
+        show_game_over_screen(game_over_text)
