@@ -17,8 +17,9 @@ py.display.set_caption('Dinorun')
 #Declarando variável com tipo de fonte do jogo.
 fonte_do_jogo = py.font.Font("assets/font/PixelType.ttf", 50)
 
-#Criando superfície com texto.
+#Criando superfícies com texto.
 cabecalho_do_jogo = fonte_do_jogo.render("Dinorun", False, 'Green')
+game_over_text = fonte_do_jogo.render("Game Over", False, 'Black')
 
 #Importando imagens do jogo.
 sky_image = py.image.load('assets/graphics/Blue-Sky.png').convert_alpha()
@@ -51,7 +52,6 @@ def draw_images ():
     tela.blit(stone_image, stone_rectangle)
     tela.blit(dino_image, dino_rectangle)
 
-
 def move_obstacle_in_window(obstacle_rectangle):
     '''
     Responsável pelo movimento constante dos obstáculos dentro da tela do jogo.
@@ -61,7 +61,26 @@ def move_obstacle_in_window(obstacle_rectangle):
     if obstacle_rectangle.right <= 0:
         obstacle_rectangle.left = 800
 
-dino_gravity = 0
+def dino_jump(dino_rect, dino_gravity):
+    '''
+    Responsável pelo efeito de pulo do dinossaura na tela.
+    '''
+
+    dino_rect.y += dino_gravity
+
+    if dino_rect.bottom > 310:
+        dino_rect.bottom = 310
+
+gravity = int()
+
+def dino_end_game(dino_rect, *obstacle_rectangles):
+    '''
+    Finaliza o jogo se ouver colisão entre o dinossauro e um obstáculo.
+    '''
+    
+    for obstacle in obstacle_rectangles:
+        if dino_rect.colliderect(obstacle):
+            return True
 
 while True:
     for event in py.event.get():
@@ -72,20 +91,21 @@ while True:
         if event.type == py.KEYDOWN:
             if dino_rectangle.bottom == 310:
                 if event.key == py.K_UP:
-                    dino_gravity = -20
+                    gravity = -20
 
-    draw_images()
-    move_obstacle_in_window(stone_rectangle)
+    if not dino_end_game(dino_rectangle, stone_rectangle):
+        draw_images()
+        move_obstacle_in_window(stone_rectangle)
+    
+        #Efeito de pulo do dinossauro na tela.
+        dino_jump(dino_rectangle, gravity)
+        gravity += 1
 
-    dino_gravity += 1
+        #Atualiza todos os componentes da tela.
+        py.display.flip()
 
-    dino_rectangle.y += dino_gravity
-
-    if dino_rectangle.bottom > 310:
-        dino_rectangle.bottom = 310
-
-    #Atualiza todos os componentes da tela.
-    py.display.flip()
-
-    #Define o FPS (Frames per Second - Quadros por Segundo) do jogo.
-    clock.tick(60)
+        #Define o FPS (Frames per Second - Quadros por Segundo) do jogo.
+        clock.tick(60)
+    else:
+        tela.blit(game_over_text, (325, 50))
+        py.display.flip()
