@@ -1,10 +1,10 @@
 import pygame as py;
 from sys import exit
 
-#Inciializando jogo.
+#Inicializando jogo.
 py.init()
 
-#Instânciando classe clock, para controle de FPS.
+#Instanciando classe clock, para controle de FPS.
 clock = py.time.Clock()
 
 #Definições do tamanho da tela do jogo.
@@ -15,11 +15,12 @@ tela = py.display.set_mode(dimensoes)
 py.display.set_caption('Dinorun')
 
 #Declarando variável com tipo de fonte do jogo.
-fonte_do_jogo = py.font.Font("assets/font/PixelType.ttf", 50)
+fonte_do_jogo = py.font.Font("assets/fonts/PixelType.ttf", 50)
+fonte_fim_do_jogo = py.font.Font("assets/fonts/game_over.ttf", 200)
 
 #Criando superfícies com texto.
-cabecalho_do_jogo = fonte_do_jogo.render("Dinorun", False, 'Green')
-game_over_text = fonte_do_jogo.render("Game Over", False, 'Black')
+cabecalho_do_jogo = fonte_do_jogo.render("Dinorun", False, '#44b528')
+game_over_text = fonte_fim_do_jogo.render("Game Over", False, 'Red')
 
 #Importando imagens do jogo.
 sky_image = py.image.load('assets/graphics/Blue-Sky.png').convert_alpha()
@@ -63,7 +64,7 @@ def move_obstacle_in_window(obstacle_rectangle):
 
 def dino_jump(dino_rect, dino_gravity):
     '''
-    Responsável pelo efeito de pulo do dinossaura na tela.
+    Responsável pelo efeito de pulo do dinossauro na tela.
     '''
 
     dino_rect.y += dino_gravity
@@ -75,7 +76,7 @@ gravity = int()
 
 def dino_end_game(dino_rect, *obstacle_rectangles):
     '''
-    Finaliza o jogo se ouver colisão entre o dinossauro e um obstáculo.
+    Finaliza o jogo se houver colisão entre o dinossauro e um obstáculo.
     '''
     
     for obstacle in obstacle_rectangles:
@@ -107,5 +108,6 @@ while True:
         #Define o FPS (Frames per Second - Quadros por Segundo) do jogo.
         clock.tick(60)
     else:
-        tela.blit(game_over_text, (325, 50))
+        tela.fill('#112e0a')
+        tela.blit(game_over_text, (200, -20))
         py.display.flip()
