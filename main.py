@@ -17,18 +17,22 @@ py.display.set_caption('Dinorun')
 #Declarando variável com tipo de fonte do jogo.
 def fonte_do_jogo(tamanho_da_fonte):
     return py.font.Font("assets/fonts/PixelType.ttf", tamanho_da_fonte)
-    
-fonte_fim_do_jogo = py.font.Font("assets/fonts/game_over.ttf", 200)
+
+def fonte_inicio_fim_do_jogo(tamanho_da_fonte):
+    return py.font.Font("assets/fonts/game_over.ttf", tamanho_da_fonte)
 
 #Criando superfícies com texto.
 cabecalho_do_jogo = fonte_do_jogo(50).render("Dinorun", False, '#44b528')
-restart_text = fonte_do_jogo(30).render("- Pressione qualquer tecla para reiniciar o jogo -", False, 'Yellow')
-game_over_text = fonte_fim_do_jogo.render("Game Over", False, 'Red')
+
+initial_game_screen_text = fonte_inicio_fim_do_jogo(200).render("Start Playing", False, 'Green')
+start_text = fonte_inicio_fim_do_jogo(30).render("- Pressione qualquer tecla para iniciar o jogo -", False, 'Yellow')
+
+game_over_screen_text = fonte_inicio_fim_do_jogo(200).render("Game Over", False, 'Red')
+restart_text = fonte_inicio_fim_do_jogo(30).render("- Pressione qualquer tecla para reiniciar o jogo -", False, 'Yellow')
 
 #Importando imagens do jogo.
 sky_image = py.image.load('assets/graphics/Blue-Sky.png').convert_alpha()
 ground_image = py.image.load('assets/graphics/Green-Ground.png').convert_alpha()
-
 
 stone_image = py.image.load('assets/graphics/Stone/stone.png').convert_alpha()
 stone_x_pos = 800
@@ -85,14 +89,46 @@ def dino_end_game(dino_rect, *obstacle_rectangles):
     for obstacle in obstacle_rectangles:
         if dino_rect.colliderect(obstacle):
             return True
+
+def show_initial_game_screen():
+    '''
+    Exibe tela inicial do jogo.
+    '''
+
+    tela.fill('#112e0a')
+    tela.blit(initial_game_screen_text, (175, -20))
+    tela.blit(start_text, (260, 370))
+    py.display.flip()
+
+def show_game_over_screen(game_over_text):
+    '''
+    Exibe tela final do jogo.
+    '''
+
+    tela.fill('#112e0a')
+    tela.blit(game_over_text, (200, -20))
+    tela.blit(restart_text, (260, 370))
+    py.display.flip()
+
 def restart_game(obstacle_rectangle):
     obstacle_rectangle.left = 800
 
-def show_game_over_screen(game_over_text):
-    tela.fill('#112e0a')
-    tela.blit(game_over_text, (200, -20))
-    tela.blit(restart_text, (190, 370))
-    py.display.flip()
+#While loop para exibição de tela inicial do jogo.
+while True:
+    game_started = False
+
+    for event in py.event.get():
+        if event.type == py.QUIT:
+            py.quit()
+            exit()
+        
+        if event.type == py.KEYDOWN:
+            game_started = True
+    
+    show_initial_game_screen()
+
+    if game_started:
+        break
 
 while True:
     for event in py.event.get():
@@ -124,4 +160,4 @@ while True:
         #Define o FPS (Frames per Second - Quadros por Segundo) do jogo.
         clock.tick(60)
     else:
-        show_game_over_screen(game_over_text)
+        show_game_over_screen(game_over_screen_text)
