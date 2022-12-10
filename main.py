@@ -102,8 +102,10 @@ def show_initial_game_screen():
     '''
     Exibe tela inicial do jogo.
     '''
-
-    tela.fill('#112e0a')
+    name_player_surface = py.Surface((300, 100))
+    name_player_surface.fill('yellow')
+    tela.blit(name_player_surface, (250, 150))
+    tela.blit(name_player_box, (275, 185))
     tela.blit(initial_game_screen_text, (175, -20))
     tela.blit(start_text, (260, 370))
     py.display.flip()
