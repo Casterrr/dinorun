@@ -3,6 +3,17 @@ from sys import exit
 from random import randint
 
 
+from start_pygame import *
+
+from texts import *
+
+from images import *
+
+from positions import *
+
+from rectangles import *
+
+
 def obstacle_movement(obstacle_list):
     #se há algo na lista
     if obstacle_list:
@@ -25,61 +36,6 @@ def obstacle_movement(obstacle_list):
         return obstacle_list
     # No início do jogo, não haverá nada na lista de obstáculos, pois só são adicionados obstáculos na lista a cada 1.4 segundos
     else: return []
-
-py.init()
-
-
-#Instanciando classe clock, para controle de FPS.
-clock = py.time.Clock()
-
-#Definições do tamanho da tela do jogo.
-dimensoes = largura, altura = 800, 400
-tela = py.display.set_mode(dimensoes)
-
-#Definindo legenda do jogo.
-py.display.set_caption('Dinorun')
-
-#Declarando variável com tipo de fonte do jogo.
-def fonte_do_jogo(tamanho_da_fonte):
-    return py.font.Font("assets/fonts/PixelType.ttf", tamanho_da_fonte)
-
-def fonte_inicio_fim_do_jogo(tamanho_da_fonte):
-    return py.font.Font("assets/fonts/game_over.ttf", tamanho_da_fonte)
-
-    
-fonte_fim_do_jogo = py.font.Font("assets/fonts/game_over.ttf", 200)
-
-#Criando superfícies com texto.
-cabecalho_do_jogo = fonte_do_jogo(50).render("Dinorun", False, '#44b528')
-
-initial_game_screen_text = fonte_inicio_fim_do_jogo(200).render("Start Playing", False, 'Green')
-start_text = fonte_inicio_fim_do_jogo(30).render("- Pressione qualquer tecla para iniciar o jogo -", False, 'Yellow')
-
-game_over_text = fonte_fim_do_jogo.render("Game Over", False, 'Red')
-restart_text = fonte_do_jogo(30).render("- Pressione qualquer tecla para reiniciar o jogo -", False, 'Yellow')
-
-#Importando imagens do jogo.
-sky_image = py.image.load('assets/graphics/Blue-Sky.png').convert_alpha()
-ground_image = py.image.load('assets/graphics/Green-Ground.png').convert_alpha()
-
-coin_image = py.image.load('assets/graphics/Coin/semi-borderless-coin.png').convert_alpha()
-
-stone_image = py.image.load('assets/graphics/Stone/stone.png').convert_alpha()
-
-dino_image = py.image.load('assets/graphics/Dinosaur/dinosaur.png').convert_alpha()
-
-coin_y_pos = 210
-
-stone_x_pos = 800
-stone_y_pos = 315
-
-dino_x_pos = 80
-dino_y_pos = 310
-
-#Gerando retângulos para cada imagem a partir de suas dimensões, e determinando seus pontos no espaço.
-dino_rectangle = dino_image.get_rect(midbottom = (dino_x_pos, dino_y_pos))
-stone_rectangle = stone_image.get_rect(midbottom = (stone_x_pos, stone_y_pos))
-coin_rectangle = coin_image.get_rect(midbottom = (80, 230))
 
 obstacle_rect_list = []
 
