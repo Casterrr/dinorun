@@ -15,7 +15,7 @@ cabecalho_do_jogo = fonte_do_jogo(50).render("Dinorun", False, '#44b528')
 
 initial_game_screen_text = fonte_inicio_fim_do_jogo(200).render("Start Playing", False, 'Green')
 start_text = fonte_inicio_fim_do_jogo(30).render("- Pressione qualquer tecla para iniciar o jogo -", False, 'Yellow')
-name_player_box = fonte_do_jogo(50).render("Player Name", False, 'blue')
+message_player_box = fonte_do_jogo(50).render("Player Name", False, 'white')
 
 game_over_text = fonte_fim_do_jogo.render("Game Over", False, 'Red')
 restart_text = fonte_do_jogo(30).render("- Pressione qualquer tecla para reiniciar o jogo -", False, 'Yellow')
