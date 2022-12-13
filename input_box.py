@@ -1,7 +1,7 @@
 import pygame as pg
 from texts import fonte_do_jogo
 from start_pygame import tela
-
+from sys import exit
 
 
 ##screen = pg.display.set_mode((640, 480))
@@ -18,7 +18,7 @@ class InputBox():
         self.text = text
         self.txt_surface = fonte_do_jogo(50).render(text, False, self.color)
         self.active = False
-
+        
     ##Coordena os eventos na tela
     def handle_event(self, event):
         if event.type == pg.MOUSEBUTTONDOWN:
@@ -54,8 +54,8 @@ class InputBox():
 
 
 ## Função principal
-def main():
-    name_player = InputBox(300, 130, 200, 35, 'PLAYER NAME')
+def function_input(name_player):
+    ##name_player = InputBox(300, 130, 200, 35, 'PLAYER NAME')
     ##input_box1 = InputBox(100, 100, 140, 32)
     ##input_box2 = InputBox(100, 300, 140, 32)
     input_box = [name_player]
@@ -64,7 +64,10 @@ def main():
     while not done:
         for event in pg.event.get():
             if event.type == pg.QUIT:
-                done = True
+                ##done = True
+                if event.type == pg.QUIT:
+                    pg.quit()
+                    exit()
             for box in input_box:
                 box.handle_event(event)
             
@@ -78,5 +81,4 @@ def main():
         pg.display.flip()
         
 
-main()
  

@@ -13,7 +13,7 @@ from positions import *
 
 from rectangles import *
 
-from input_box import InputBox
+from input_box import *
 
 
 
@@ -112,15 +112,10 @@ def show_initial_game_screen():
 
     tela.blit(initial_game_screen_text, (175, -20))
     tela.blit(start_text, (260, 370))
-    
+    name_player = InputBox(300, 150, 150, 35, 'PLAYER NAME')
+    function_input(name_player)
     py.display.flip()
-    name_player = InputBox(300, 130, 200, 35, 'PLAYER NAME')
-
-'''def score():
-    current_time = py.time.get_ticks()
-    score_surface = fonte_do_jogo(30).render(current_time, False, 'white')
-    score_rectangle = score_surface.get_rect(right = (600, 50))
-    tela.blit(score_surface, score_rectangle)'''
+    
 
 def show_game_over_screen(game_over_text):
     tela.fill('#112e0a')
