@@ -98,6 +98,19 @@ def restart_game(obstacle_rectangles):
     obstacle_rectangles = []
     return obstacle_rectangles
 
+font = fonte_do_jogo(40)
+score = 0
+start_offset = 0
+##Função para mostrar score
+def display_score():
+    if active == True:
+        score = (py.time.get_ticks() - start_offset)//1000    
+        score_surface = font.render(f'Score: {str(score)}', False, 'black')
+        score_rectangle = score_surface.get_rect(midtop = (400, 40))
+        tela.blit(score_surface, score_rectangle)    
+    return score
+        
+
 def show_initial_game_screen():
     '''
     Exibe tela inicial do jogo.
@@ -108,9 +121,11 @@ def show_initial_game_screen():
     tela.blit(start_text, (260, 370))
     py.display.flip()
 
-def show_game_over_screen(game_over_text):
+def show_game_over_screen(game_over_text, score):
     tela.fill('#112e0a')
     tela.blit(game_over_text, (200, -20))
+    score_final = fonte_inicio_fim_do_jogo(60).render(f"Your score: {str(score)}", False, 'white')
+    tela.blit(score_final, (300, 100))
     tela.blit(restart_text, (190, 370))
     py.display.flip()
 
@@ -135,6 +150,7 @@ while True:
         break
 
 while True:
+    active = True
     for event in py.event.get():
         if event.type == py.QUIT:
             py.quit()
@@ -148,6 +164,7 @@ while True:
         if event.type == py.KEYDOWN:
             if has_collided_with_obstacles(dino_rectangle, object_rect_list):
                 object_rect_list = restart_game(object_rect_list)
+                start_offset = py.time.get_ticks()
         
         '''
         Adiciona o obstáculo pedra na lista de obstáculos que serão desenhados na tela após certo período de tempo.
@@ -171,10 +188,15 @@ while True:
         # Obstacle movement
         object_rect_list = object_movement(object_rect_list)
 
+        ##Mostra a pontuação
+        score = display_score()
         #Atualiza todos os componentes da tela.
         py.display.flip()
 
         #Define o FPS (Frames per Second - Quadros por Segundo) do jogo.
         clock.tick(60)
     else:
-        show_game_over_screen(game_over_text)
+        
+        active = False
+        show_game_over_screen(game_over_text, score)
+        
