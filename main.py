@@ -4,18 +4,13 @@ from random import randint
 
 
 from start_pygame import *
-
 from texts import *
-
 from images import *
-
 from positions import *
-
 from rectangles import *
 
-
 def object_movement(object_list):
-    #se há algo na lista
+    #Se houver algo na lista.
     if object_list:
         for object_rect in object_list:
 
@@ -29,8 +24,7 @@ def object_movement(object_list):
             else:
                 object_rect.x -= 5
                 tela.blit(stone_image, object_rect)
-                
-        
+
         '''
         Para cada obstáculo na lista, verifica se a posição X dele é maior que 0. Se sim, retorna esse obstáculo.
         O objetivo aqui, é descartar todos os objetos que já saíram da tela a 100px pelo lado esquerdo.
@@ -42,7 +36,6 @@ def object_movement(object_list):
     else: return []
 
 object_rect_list = []
-
 
 def draw_images ():
     '''
@@ -98,16 +91,18 @@ def restart_game(obstacle_rectangles):
     obstacle_rectangles = []
     return obstacle_rectangles
 
-font = fonte_do_jogo(40)
 score = 0
 start_offset = 0
-##Função para mostrar score
+
 def display_score():
+    '''
+    Essa função é responsável por exibir o score na tela de jogo.
+    '''
+
     if active == True:
-        score = (py.time.get_ticks() - start_offset)//1000    
-        score_surface = font.render(f'Score: {str(score)}', False, 'black')
-        score_rectangle = score_surface.get_rect(midtop = (400, 40))
-        tela.blit(score_surface, score_rectangle)    
+        score = (py.time.get_ticks() - start_offset)//100    
+        score_text = fonte_do_jogo(40).render(f'Score: {score}', False, 'black')
+        tela.blit(score_text, (350, 35))    
     return score
         
 
