@@ -2,147 +2,89 @@ import pygame as py;
 from sys import exit
 from random import randint
 
-
 from start_pygame import *
 from texts import *
 from images import *
-from positions import *
 from rectangles import *
+from functions import *
+from Coin import *
+from Stone import *
 
-def object_movement(object_list):
-    #Se houver algo na lista.
-    if object_list:
-        for object_rect in object_list:
-
-            '''
-            Verifica se o objeto é um obstáculo ou uma moeda, para desenhar em tela suas respectivas imagens com seus retângulos.
-            Também define a velocidade com a qual cada objeto irá andar para a esquerda
-            '''
-            if object_rect.bottom == 210:
-                object_rect.x -= 2
-                tela.blit(coin_image, object_rect)
-            else:
-                object_rect.x -= 5
-                tela.blit(stone_image, object_rect)
-
-        '''
-        Para cada obstáculo na lista, verifica se a posição X dele é maior que 0. Se sim, retorna esse obstáculo.
-        O objetivo aqui, é descartar todos os objetos que já saíram da tela a 100px pelo lado esquerdo.
-        '''
-        object_list = [obstacle for obstacle in object_list if obstacle.x > -100]
-        
-        return object_list
-    # No início do jogo, não haverá nada na lista de obstáculos, pois só são adicionados obstáculos na lista a cada 1.4 segundos
-    else: return []
-
-object_rect_list = []
-
-def draw_images ():
+def cria_objetos(lista_de_objetos):
     '''
-    Adiciona imagens do jogo sobre a tela principal.
+    Cria de maneira randômica objetos moedas ou pedra, e os adiciona a uma dada lista.
     '''
 
-    tela.blit(sky_image, (0, 0))
-    tela.blit(ground_image, (0, 300))
+    if randint(0,2):
+        lista_de_objetos.append(Coin())
+    else:
+        lista_de_objetos.append(Stone())
     
-    # tela.blit(coin_image, coin_rectangle)
+    print(lista_de_objetos)
 
-    tela.blit(cabecalho_do_jogo, (20, 20))
-
-    #Variáveis _rectangle utilizadas como tupla de coordenadas.
-    # tela.blit(stone_image, stone_rectangle)
-    tela.blit(dino_image, dino_rectangle)
-
-
-def dino_jump(dino_rect, dino_gravity):
+def movimenta_objetos(janela_do_jogo, lista_de_objetos):
     '''
-    Responsável pelo efeito de pulo do dinossauro na tela.
+    Move objetos de uma dada lista na em uma dada tela do jogo.
+    Ao final, retorna a lista sem os objetos que estão fora da tela.
     '''
+    
+    if lista_de_objetos:
+        for objeto in lista_de_objetos:
 
-    dino_rect.y += dino_gravity
+            if objeto.__str__() == "Coin_Object":
+                objeto.move_para_esquerda(2)
+                janela_do_jogo.blit(objeto.get_image(), objeto.retangulo)
+            elif objeto.__str__() == "Stone_Object":
+                objeto.move_para_esquerda(5)
+                tela.blit(objeto.get_image(), objeto.retangulo)
 
-    if dino_rect.bottom > 310:
-        dino_rect.bottom = 310
+            #Atualiza lista, removendo objetos fora da tela.
+            lista_de_objetos = [objeto for objeto in lista_de_objetos if objeto.retangulo.x > -100]
+
+    #Retorna lista atualizada.   
+    return lista_de_objetos
+
+object_rect_list = list()
+
+conteudo_tela_de_inicio = [(texto_da_tela_de_incio, (185, -20)), (texto_instrutivo_iniciar_jogo, (265, 370))]
+conteudo_tela_de_jogatina = [(sky_image, (0, 0)), (ground_image, (0, 300)), (cabecalho_do_jogo, (20, 20)), (dino_image, dino_rectangle)]
+conteudo_tela_de_fim_do_jogo = [(texto_de_fim_de_jogo, (215, -20)), (texto_instrutivo_reiniciar_jogo, (265, 370))]
 
 gravity = int()
 
-def has_collided_with_obstacles(dino_rect, obstacle_rectangles):
+def has_collided_with_obstacles(dino_rect, lista_de_objetos):
     '''
-    Finaliza o jogo se houver colisão entre o dinossauro e um obstáculo. Mas se houver colisão entre o dinossauro e uma moeda, 
-    faz a moeda desaparecer.
+    Finaliza o jogo se houver colisão entre o dinossauro e um obstáculo. 
+    Se houver colisão entre o dinossauro e uma moeda, faz a moeda desaparecer.
     '''
-    if obstacle_rectangles:
-        for obstacle_rect in obstacle_rectangles:
-            if dino_rect.colliderect(obstacle_rect):
+
+    if lista_de_objetos:
+        for objeto in lista_de_objetos:
+            if dino_rect.colliderect(objeto.retangulo):
                 '''
                 Se a colisão for com uma moeda, remove da lista de obstáculos, fazendo ela desaparecer.
                 E se a colisão não for com uma moeda, retorna "True" para informar que houve colisão com um obstáculo.
                 '''
-                if obstacle_rect.bottom == 210:
-                    obstacle_rectangles.remove(obstacle_rect)
+                if objeto.__str__() == 'Coin_Object':
+                    lista_de_objetos.remove(objeto)
                     return False
                 else:
                     return True
-                    
-                
-    return False
+        else:
+            return False
 
 def restart_game(obstacle_rectangles):
+    '''
+    Recebe uma lista de objetos e retorna ela vazia.
+    '''
+
     obstacle_rectangles = []
     return obstacle_rectangles
-
-score = 0
-start_offset = 0
-
-def display_score():
-    '''
-    Essa função é responsável por exibir o score na tela de jogo.
-    '''
-
-    if active == True:
-        score = (py.time.get_ticks() - start_offset)//100    
-        score_text = fonte_do_jogo(40).render(f'Score: {score}', False, 'black')
-        tela.blit(score_text, (350, 35))    
-    return score
-        
-
-def show_initial_game_screen():
-    '''
-    Exibe tela inicial do jogo.
-    '''
-
-    tela.fill('#112e0a')
-    tela.blit(initial_game_screen_text, (175, -20))
-    tela.blit(start_text, (260, 370))
-    py.display.flip()
-
-def show_game_over_screen(game_over_text, score):
-    tela.fill('#112e0a')
-    tela.blit(game_over_text, (200, -20))
-    score_final = fonte_inicio_fim_do_jogo(60).render(f"Your score: {str(score)}", False, 'white')
-    tela.blit(score_final, (300, 100))
-    tela.blit(restart_text, (190, 370))
-    py.display.flip()
 
 object_timer = py.USEREVENT + 1
 py.time.set_timer(object_timer, 1400)
 
-#While loop para exibição de tela inicial do jogo.
-while True:
-    game_started = False
-
-    for event in py.event.get():
-        if event.type == py.QUIT:
-            py.quit()
-            exit()
-        
-        if event.type == py.KEYDOWN:
-            game_started = True
-    
-    show_initial_game_screen()
-
-    if game_started:
-        break
+inicia_jogo(tela, conteudo_tela_de_inicio)
 
 while True:
     active = True
@@ -159,39 +101,34 @@ while True:
         if event.type == py.KEYDOWN:
             if has_collided_with_obstacles(dino_rectangle, object_rect_list):
                 object_rect_list = restart_game(object_rect_list)
-                start_offset = py.time.get_ticks()
+                #start_offset = py.time.get_ticks()
         
         '''
         Adiciona o obstáculo pedra na lista de obstáculos que serão desenhados na tela após certo período de tempo.
         Esses obstáculos serão desenhados fora da tela, do lado direito, com posição X aleatória.
         '''
         if event.type == object_timer and not has_collided_with_obstacles(dino_rectangle, object_rect_list):
-            if randint(0,2):
-
-                object_rect_list.append(stone_image.get_rect(midbottom = (randint(900, 1100), stone_y_pos)))
-            else:
-                object_rect_list.append(coin_image.get_rect(midbottom = (randint(900, 1100), coin_y_pos)))
-
+            cria_objetos(object_rect_list)
 
     if not has_collided_with_obstacles(dino_rectangle, object_rect_list):
-        draw_images()
+        exibe_tela_de_jogatina(tela, conteudo_tela_de_jogatina)
     
         #Efeito de pulo do dinossauro na tela.
         dino_jump(dino_rectangle, gravity)
         gravity += 1
 
         # Obstacle movement
-        object_rect_list = object_movement(object_rect_list)
+        object_rect_list = movimenta_objetos(tela, object_rect_list)
 
         ##Mostra a pontuação
-        score = display_score()
+        #score = display_score()
+
         #Atualiza todos os componentes da tela.
         py.display.flip()
 
         #Define o FPS (Frames per Second - Quadros por Segundo) do jogo.
         clock.tick(60)
     else:
-        
         active = False
-        show_game_over_screen(game_over_text, score)
-        
+        exibe_tela_de_fim_de_jogo(tela, conteudo_tela_de_fim_do_jogo)
+        py.display.flip()
