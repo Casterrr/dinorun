@@ -1,4 +1,5 @@
 import pygame as py
+from random import randint
 
 def main():
     pass
@@ -8,6 +9,8 @@ class Dinosaur():
         self._path = 'assets/graphics/Dinosaur/dinosaur.png'
         self._x_pos = 80
         self._y_pos = 310
+        self.retangulo = self.get_image().get_rect(midbottom = (80, 310))
+        self.gravidade_sofrida = 0
 
     def __str__(self):
         '''
