@@ -150,5 +150,6 @@ def fonte_do_jogo(tamanho_da_fonte):
 
 def fonte_inicio_fim_do_jogo(tamanho_da_fonte):
     return py.font.Font("assets/fonts/game_over.ttf", tamanho_da_fonte)
+
 if __name__ == '__main__':
     main()

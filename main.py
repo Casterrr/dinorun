@@ -3,9 +3,19 @@ from sys import exit
 from random import randint
 
 from functions import *
-from coin import Coin
-from stone import Stone
-from dinosaur import Dinosaur
+from Coin import Coin
+from Stone import Stone
+from Dinosaur import Dinosaur
+
+def cria_objetos(lista_de_objetos):
+    '''
+    Cria de maneira randômica objetos moedas ou pedra, e os adiciona a uma dada lista.
+    '''
+
+    if randint(0,2) == randint(0,2):
+        lista_de_objetos.append(Coin())
+    else:
+        lista_de_objetos.append(Stone())
 
 def main():
 
@@ -101,15 +111,7 @@ def main():
             exibe_tela_de_fim_de_jogo(tela, conteudo_tela_de_fim_do_jogo)
             py.display.flip()
 
-def cria_objetos(lista_de_objetos):
-    '''
-    Cria de maneira randômica objetos moedas ou pedra, e os adiciona a uma dada lista.
-    '''
 
-    if randint(0,2) == randint(0,2):
-        lista_de_objetos.append(Coin())
-    else:
-        lista_de_objetos.append(Stone())
 
 if __name__ == '__main__':
     main()
