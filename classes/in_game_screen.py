@@ -70,6 +70,19 @@ class In_Game_Screen():
                 self.game_clock_variable.tick(60)
             else:
                 break
+
+    ##Função para mostrar score
+    def display_score(tela, active):
+        pontuacao = 0
+        if active == True:
+            pontuacao += py.time.get_ticks()//1000 
+            font = fonte_principal(40)  
+            score_surface = font.render(f'Score: {str(pontuacao)}', False, 'black')
+            score_rectangle = score_surface.get_rect(midtop = (400, 40))
+            tela.blit(score_surface, score_rectangle)  
+        else:
+            return pontuacao
+
     
     def restart_game(self):
         '''
