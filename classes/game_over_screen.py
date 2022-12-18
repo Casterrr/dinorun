@@ -13,12 +13,14 @@ class Game_Over_Screen():
 
     def adiciona_conteudo_tela_final(self):
         '''
-        Adiciona imagens/objetos/elementos à tela - tela do jogo durante a tela final (após à jogatina).
+        Adiciona imagens/objetos/score/elementos à tela - tela do jogo durante a tela final (após à jogatina).
         '''
 
         conteudo_da_tela = [ (self.texto_de_fim_de_jogo, (215, -20)), (self.texto_instrutivo_reiniciar_jogo, (265, 370)) ]
 
         self.screen.fill('#112e0a')
+        
+        self.exibe_pontuacao_jogador()
 
         for objeto in conteudo_da_tela:
             self.screen.blit(objeto[0], objeto[1])
@@ -37,12 +39,49 @@ class Game_Over_Screen():
                     exit()
                 
                 if event.type == py.KEYDOWN:
-                    self.restart_game()
-                    in_game_over_screen = False
+                    if event.key == py.K_KP_ENTER or event.key == py.K_RETURN:
+                        self.restart_game()
+                        in_game_over_screen = False
             
             self.adiciona_conteudo_tela_final()
             py.display.flip()
 
+    def adiciona_jogador_ao_ranking(self, ranking_file, jogador):
+        '''
+        Adiciona dados do jogador ao ranking.
+        '''
+
+        def valida_insercao_no_ranking(self, ranking_file, jogador):
+            '''
+            Verifica se o jogador atende aos requisitos para entrar no ranking.
+            Retorna True se sim, e False se não.
+            '''
+
+            pass
+
+    def exibe_ranking(self, ranking_file):
+        '''
+        Exibe ranking (Top 5 Pontuações).
+        '''
+
+        pass
+
+    def exibe_pontuacao_jogador(self):
+        '''
+        Exibe pontuação final do ultimo jogador.
+        '''
+        
+        pass
+    
+    def restart_game(self):
+        '''
+        Redefine atributos para reiniciar a jogatina.
+        '''
+
+        self.conteudo_do_jogo['objetos'] = list()
+        self.conteudo_do_jogo['dinossauro'].reset_attributes()
+        self.jogador = Player()
+    
     def main():
         pass
 
