@@ -3,7 +3,7 @@ from sys import exit
 from random import randint
 
 from classes.dinosaur import Dinosaur
-from classes.screen import Window
+from classes.screen import *
 
 def main():
     

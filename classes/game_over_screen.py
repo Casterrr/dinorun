@@ -44,6 +44,8 @@ class Game_Over_Screen():
                         in_game_over_screen = False
             
             self.adiciona_conteudo_tela_final()
+            self.display_score(False)
+
             py.display.flip()
 
     def adiciona_jogador_ao_ranking(self, ranking_file, jogador):

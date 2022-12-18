@@ -18,6 +18,7 @@ class Start_Screen():
 
         conteudo_da_tela = [(self.texto_da_tela_de_incio, (185, -20)), (self.texto_instrutivo_iniciar_jogo, (265, 370))]
 
+        self.display_score(True)
         self.screen.fill('#112e0a')
 
         for objeto in conteudo_da_tela:
@@ -39,6 +40,7 @@ class Start_Screen():
                     return False
             
             self.adiciona_conteudo_tela_de_inicio()
+            
             py.display.flip()
 
     def main():

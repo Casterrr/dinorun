@@ -1,5 +1,7 @@
 import pygame as py
 from functions import fonte_principal, cria_objetos, movimenta_objetos,colidiu_com_obstaculo
+##from main import tela
+
 
 class In_Game_Screen():
     def __init__(self):
@@ -63,8 +65,6 @@ class In_Game_Screen():
 
                 #Movimentação dos objetos do jogo na tela.
                 self.conteudo_do_jogo['objetos'] = movimenta_objetos(self.screen, self.conteudo_do_jogo['objetos'])
-
-                self.display_score(True)
                 
                 #Atualiza tela.
                 py.display.flip()
@@ -73,7 +73,31 @@ class In_Game_Screen():
                 self.game_clock_variable.tick(60)
             else:
                 break
-            
+
+    ##Função para mostrar score
+    def display_score(self, active):
+        pontuacao = 0
+        if active == True:
+            pontuacao += py.time.get_ticks()//1000 
+            font = fonte_principal(40)  
+            score_surface = font.render(f'Score: {str(pontuacao)}', False, 'black')
+            score_rectangle = score_surface.get_rect(midtop = (400, 40))
+            self.screen.blit(score_surface, score_rectangle)  
+        else:
+            font = fonte_principal(40)  
+            score_surface = font.render(f'Score: {str(pontuacao)}', False, 'black')
+            score_rectangle = score_surface.get_rect(midtop = (400, 40))
+            tela.blit(score_surface, score_rectangle) 
+
+    
+    def restart_game(self):
+        '''
+        Redefine atributos para reiniciar a jogatina.
+        '''
+
+        self.conteudo_do_jogo['objetos'] = list()
+        self.conteudo_do_jogo['dinossauro'].reset_attributes()
+
     def main():
         pass
 
