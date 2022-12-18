@@ -89,6 +89,12 @@ def main():
                 cria_objetos(lista_de_objetos_no_jogo)
 
         if not colidiu_com_obstaculo(dino.retangulo, lista_de_objetos_no_jogo):
+
+            # Se o dinossauro estiver no chão, atualiza novamente a imagem a ser re-renderizada na tela, para fazer a animação de correr.
+            if dino.retangulo.bottom >= 300:
+                conteudo_tela_de_jogatina = [(background_image, (0, 0)), (ground_image, (0, 300)), (cabecalho_do_jogo, (20, 20)), (dino.get_image(), dino.retangulo)]
+            
+            
             exibe_tela_de_jogatina(tela, conteudo_tela_de_jogatina)
         
             #Efeito de pulo do dinossauro na tela.
@@ -97,6 +103,8 @@ def main():
 
             # Obstacle movement
             lista_de_objetos_no_jogo = movimenta_objetos(tela, lista_de_objetos_no_jogo)
+
+
 
             ##Mostra a pontuação
             #score = display_score()
