@@ -15,7 +15,7 @@ class In_Game_Screen(Start_Screen):
         self.screen = py.display.set_mode((self._largura, self._altura))
 
         self.cabecalho_do_jogo = fonte_principal(50).render("Dinorun", False, '#44b528')
-        self.background_image = py.image.load('./assets/graphics/Blue-Sky.png').convert_alpha()
+        self.background_image = py.image.load('./assets/graphics/Blue-Clean-Sky.png').convert_alpha()
         self.ground_image = py.image.load('./assets/graphics/Green-Ground.png').convert_alpha()
         
         self.conteudo_do_jogo = dict()
@@ -52,7 +52,7 @@ class In_Game_Screen(Start_Screen):
                 if event.type == py.KEYDOWN:
                     if self.conteudo_do_jogo['dinossauro'].retangulo.bottom == 310:
                         if event.key == py.K_UP:
-                            self.conteudo_do_jogo['dinossauro'].gravidade_sofrida = -20
+                            self.conteudo_do_jogo['dinossauro'].gravidade_sofrida = -18
                 
                 #Criação de objetos do jogo.
                 if event.type == object_timer:

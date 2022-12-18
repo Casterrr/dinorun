@@ -12,7 +12,7 @@ class Window(Game_Over_Screen):
 
         self.screen = py.display.set_mode((self._largura, self._altura))
         self.caption = py.display.set_caption('Dinorun')
-
+    
     def set_conteudo_do_jogo(self, conteudo):
         '''
         Define coleção de dados (espera-se um dicionário) com os objetos a serem exibidos na tela.
