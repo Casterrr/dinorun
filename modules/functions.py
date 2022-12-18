@@ -4,9 +4,6 @@ from classes.coin import Coin
 from classes.stone import Stone
 from classes.cloud import Cloud
 
-def main():
-    pass
-
 def fonte_principal(tamanho_da_fonte):
     '''
     Retorna a fonte principal do jogo, com tamanho determinado pelo usuário.
@@ -23,11 +20,12 @@ def fonte_tela_inicial_ou_final(tamanho_da_fonte):
 
 def cria_objetos():
     '''
-    Retorna de maneira randômica objetos moedas ou pedra.
+    Retorna de maneira randômica objetos moedas, pedra ou nuvem.
     '''
 
     if randint(0,2) == randint(0,2):
         return Coin()
+    
     if randint(0,1) == randint(0,1) == randint(0,1):
         return Cloud()
     else:
@@ -76,6 +74,9 @@ def colidiu_com_obstaculo(dino_rect, lista_de_objetos):
                     return True
         else:
             return False
+
+def main():
+    pass
 
 if __name__ == '__main__':
     main()

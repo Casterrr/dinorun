@@ -1,9 +1,6 @@
 import pygame as py
 from random import randint
 
-def main():
-    pass
-
 class Coin():
     def __init__(self):
         self._img_path = ['assets/graphics/Coin/semi-borderless-coin.png', 'assets/graphics/Coin/coin-flip.png', 'assets/graphics/Coin/coin-flip-2.png']
@@ -22,13 +19,10 @@ class Coin():
         '''
         Retorna imagem do objeto/elemento moeda.
         '''
-        # Toda vez que essa função get_image for chamada, a variável _img_path_index vai ser acrescentada de 0.1
-        self._img_path_index += 0.1
-        # random_img_path = randint(0,10)
-        
-        # if random_img_path in [0,1,2]:
 
-        # Altera a imagem exibida de acordo com a parte inteira da variável _img_path_index
+        self._img_path_index += 0.1
+
+        # Altera a imagem exibida de acordo com a parte inteira do valor da variável _img_path_index.
         if int(self._img_path_index) == 1:
             return py.image.load(self._img_path[0]).convert_alpha()
         elif int(self._img_path_index) == 2:
@@ -46,6 +40,8 @@ class Coin():
         '''
 
         self.retangulo.x -= deslocamento
- 
+    
+    def main():
+        pass
 if __name__ == '__main__':
-    main()
+    Coin().main()

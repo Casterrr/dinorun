@@ -1,8 +1,14 @@
 import pygame as py
-from functions import fonte_principal, cria_objetos, movimenta_objetos,colidiu_com_obstaculo
 
-class In_Game_Screen():
+from modules.functions import fonte_principal, cria_objetos, movimenta_objetos,colidiu_com_obstaculo
+
+from classes.start_screen import Start_Screen
+from classes.player import Player
+
+class In_Game_Screen(Start_Screen):
     def __init__(self):
+        Start_Screen.__init__(self)
+
         self._largura = 800
         self._altura = 400
 
@@ -70,15 +76,7 @@ class In_Game_Screen():
                 self.game_clock_variable.tick(60)
             else:
                 break
-    
-    def restart_game(self):
-        '''
-        Redefine atributos para reiniciar a jogatina.
-        '''
-
-        self.conteudo_do_jogo['objetos'] = list()
-        self.conteudo_do_jogo['dinossauro'].reset_attributes()
-
+            
     def main():
         pass
 
