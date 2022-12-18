@@ -79,7 +79,7 @@ class Game_Over_Screen(In_Game_Screen):
         '''
         Exibe pontuação final do ultimo jogador.
         '''
-        
+        self.display_score(False)
         pass
     
     def restart_game(self):
