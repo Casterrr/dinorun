@@ -26,7 +26,7 @@ class Start_Screen():
     def exibe_tela_inicial_de_jogo(self):
         '''
         Inicia o jogo exibindo a primeira tela do jogo.
-        Se alguma tecla for precionada, retorna False, interrompendo a exibição da tela.
+        Se alguma tecla for pressionada, retorna False, interrompendo a exibição da tela.
         '''
 
         while True:
