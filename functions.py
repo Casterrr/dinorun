@@ -2,6 +2,7 @@ import pygame as py
 from random import randint
 from classes.coin import Coin
 from classes.stone import Stone
+from classes.cloud import Cloud
 
 def main():
     pass
@@ -27,6 +28,8 @@ def cria_objetos():
 
     if randint(0,2) == randint(0,2):
         return Coin()
+    if randint(0,1) == randint(0,1) == randint(0,1):
+        return Cloud()
     else:
         return Stone()
 
@@ -44,6 +47,9 @@ def movimenta_objetos(janela_do_jogo, lista_de_objetos):
                 janela_do_jogo.blit(objeto.get_image(), objeto.retangulo)
             elif objeto.__str__() == "Stone_Object":
                 objeto.move_para_esquerda(5)
+                janela_do_jogo.blit(objeto.get_image(), objeto.retangulo)
+            elif objeto.__str__() == "Cloud_Object":
+                objeto.move_para_esquerda(1)
                 janela_do_jogo.blit(objeto.get_image(), objeto.retangulo)
 
             #Atualiza lista, removendo objetos totalmente fora da tela.
@@ -63,6 +69,8 @@ def colidiu_com_obstaculo(dino_rect, lista_de_objetos):
             if dino_rect.colliderect(objeto.retangulo):
                 if objeto.__str__() == 'Coin_Object':
                     lista_de_objetos.remove(objeto)
+                    return False
+                if objeto.__str__() == 'Cloud_Object':
                     return False
                 else:
                     return True
