@@ -1,9 +1,6 @@
 import pygame as py
 from random import randint
 
-def main():
-    pass
-
 class Cloud():
     def __init__(self):
         self._img_path = 'assets/graphics/Cloud/cloud-2.png'
@@ -30,6 +27,8 @@ class Cloud():
         '''
 
         self.retangulo.x -= deslocamento
- 
+    
+    def main():
+        pass
 if __name__ == '__main__':
-    main()
+    Cloud().main()

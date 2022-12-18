@@ -20,11 +20,12 @@ def fonte_tela_inicial_ou_final(tamanho_da_fonte):
 
 def cria_objetos():
     '''
-    Retorna de maneira randômica objetos moedas ou pedra.
+    Retorna de maneira randômica objetos moedas, pedra ou nuvem.
     '''
 
     if randint(0,2) == randint(0,2):
         return Coin()
+    
     if randint(0,1) == randint(0,1) == randint(0,1):
         return Cloud()
     else:

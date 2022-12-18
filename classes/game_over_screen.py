@@ -34,6 +34,7 @@ class Game_Over_Screen(In_Game_Screen):
         Exibe tela de game over (após à jogatina).
         Se alguma tecla for precionada, interrompe a exibição da tela.
         '''
+        
         in_game_over_screen = True
 
         while in_game_over_screen:
