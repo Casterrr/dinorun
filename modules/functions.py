@@ -3,9 +3,6 @@ from random import randint
 from classes.coin import Coin
 from classes.stone import Stone
 
-def main():
-    pass
-
 def fonte_principal(tamanho_da_fonte):
     '''
     Retorna a fonte principal do jogo, com tamanho determinado pelo usuário.
@@ -68,6 +65,9 @@ def colidiu_com_obstaculo(dino_rect, lista_de_objetos):
                     return True
         else:
             return False
+
+def main():
+    pass
 
 if __name__ == '__main__':
     main()
