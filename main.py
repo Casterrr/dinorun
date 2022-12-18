@@ -1,4 +1,4 @@
-import pygame as py;
+import pygame as py
 from sys import exit
 from random import randint
 

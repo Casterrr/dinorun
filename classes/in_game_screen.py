@@ -1,10 +1,15 @@
 import pygame as py
-from functions import fonte_principal, cria_objetos, movimenta_objetos,colidiu_com_obstaculo
 ##from main import tela
 
+from modules.functions import fonte_principal, cria_objetos, movimenta_objetos,colidiu_com_obstaculo
 
-class In_Game_Screen():
+from classes.start_screen import Start_Screen
+from classes.player import Player
+
+class In_Game_Screen(Start_Screen):
     def __init__(self):
+        Start_Screen.__init__(self)
+
         self._largura = 800
         self._altura = 400
 
@@ -66,6 +71,8 @@ class In_Game_Screen():
                 #Movimentação dos objetos do jogo na tela.
                 self.conteudo_do_jogo['objetos'] = movimenta_objetos(self.screen, self.conteudo_do_jogo['objetos'])
                 
+                self.display_score(True)
+
                 #Atualiza tela.
                 py.display.flip()
 
@@ -85,9 +92,9 @@ class In_Game_Screen():
             self.screen.blit(score_surface, score_rectangle)  
         else:
             font = fonte_principal(40)  
-            score_surface = font.render(f'Score: {str(pontuacao)}', False, 'black')
-            score_rectangle = score_surface.get_rect(midtop = (400, 40))
-            tela.blit(score_surface, score_rectangle) 
+            score_surface = font.render(f'Score: {str(pontuacao)}', False, 'white')
+            score_rectangle = score_surface.get_rect(midtop = (400, 100))
+            self.screen.blit(score_surface, score_rectangle) 
 
     
     def restart_game(self):

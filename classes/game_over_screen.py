@@ -1,22 +1,28 @@
 import pygame as py
-from functions import fonte_tela_inicial_ou_final
 
-class Game_Over_Screen():
+from modules.functions import fonte_tela_inicial_ou_final
+
+from classes.in_game_screen import In_Game_Screen
+from classes.player import Player
+
+class Game_Over_Screen(In_Game_Screen):
     def __init__(self):
+        In_Game_Screen.__init__(self)
+
         self._largura = 800
         self._altura = 400
 
         self.screen = py.display.set_mode((self._largura, self._altura))
 
         self.texto_de_fim_de_jogo = fonte_tela_inicial_ou_final(200).render("Game Over", False, 'Red')
-        self.texto_instrutivo_reiniciar_jogo = fonte_tela_inicial_ou_final(30).render("- Pressione qualquer tecla para reiniciar o jogo -", False, 'Yellow')
+        self.texto_instrutivo_reiniciar_jogo = fonte_tela_inicial_ou_final(30).render("- Pressione 'Enter' para reiniciar o jogo -", False, 'Yellow')
 
     def adiciona_conteudo_tela_final(self):
         '''
         Adiciona imagens/objetos/score/elementos à tela - tela do jogo durante a tela final (após à jogatina).
         '''
 
-        conteudo_da_tela = [ (self.texto_de_fim_de_jogo, (215, -20)), (self.texto_instrutivo_reiniciar_jogo, (265, 370)) ]
+        conteudo_da_tela = [ (self.texto_de_fim_de_jogo, (215, -20)), (self.texto_instrutivo_reiniciar_jogo, (295, 370)) ]
 
         self.screen.fill('#112e0a')
         
@@ -30,6 +36,7 @@ class Game_Over_Screen():
         Exibe tela de game over (após à jogatina).
         Se alguma tecla for precionada, interrompe a exibição da tela.
         '''
+        
         in_game_over_screen = True
 
         while in_game_over_screen:

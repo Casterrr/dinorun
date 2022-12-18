@@ -1,9 +1,6 @@
 import pygame as py
 from random import randint
 
-def main():
-    pass
-
 class Stone():
     def __init__(self):
         self._path = 'assets/graphics/Stone/stone.png'
@@ -31,6 +28,9 @@ class Stone():
         '''
 
         self.retangulo.x -= deslocamento
+    
+    def main():
+        pass
 
 if __name__ == '__main__':
-    main()
+    Stone().main()

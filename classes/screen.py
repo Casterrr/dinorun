@@ -1,18 +1,16 @@
 import pygame as py
-from classes.start_screen import Start_Screen
+
 from classes.in_game_screen import In_Game_Screen
 from classes.game_over_screen import Game_Over_Screen
 
-class Window(Start_Screen, In_Game_Screen, Game_Over_Screen):
+class Window(Game_Over_Screen):
     def __init__(self):
-        Start_Screen.__init__(self)
-        In_Game_Screen.__init__(self)
         Game_Over_Screen.__init__(self)
 
         self._largura = 800
         self._altura = 400
 
-        self.screen = py.display.set_mode((self._largura, self._altura))#
+        self.screen = py.display.set_mode((self._largura, self._altura))
         self.caption = py.display.set_caption('Dinorun')
     
     def set_conteudo_do_jogo(self, conteudo):
