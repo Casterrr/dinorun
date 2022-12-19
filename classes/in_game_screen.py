@@ -1,6 +1,6 @@
 import pygame as py
 
-from modules.functions import fonte_principal, cria_objetos, movimenta_objetos,colidiu_com_obstaculo
+from modules.functions import fonte_principal, cria_objetos, movimenta_objetos
 
 from classes.start_screen import Start_Screen
 from classes.player import Player
@@ -39,7 +39,7 @@ class In_Game_Screen(Start_Screen):
                              (self.ground_image, (0, 300)), 
                              (self.cabecalho_do_jogo, (20, 20)), 
                              (self.conteudo_do_jogo['dinossauro'].get_image(), self.conteudo_do_jogo['dinossauro'].retangulo),
-                             (self.texto_score, (360, 20)) ]
+                             (self.texto_score, (355, 20)) ]
         
         for objeto in conteudo_da_tela:
             self.screen.blit(objeto[0], objeto[1])
@@ -72,7 +72,7 @@ class In_Game_Screen(Start_Screen):
                 if event.type == object_timer:
                     self.conteudo_do_jogo['objetos'].append(cria_objetos())
             
-            if not colidiu_com_obstaculo(self.conteudo_do_jogo['dinossauro'].retangulo, self.conteudo_do_jogo['objetos']):
+            if not self.colidiu_com_objeto():
 
                 #Efeito de pulo do dinossauro na tela.
                 self.conteudo_do_jogo['dinossauro'].dino_jump()
@@ -93,8 +93,27 @@ class In_Game_Screen(Start_Screen):
                 #Define FPS do jogo.
                 self.game_clock_variable.tick(60)
             else:
-                print(self.score)
+                self.jogador.score = self.score
                 break
+
+    def colidiu_com_objeto(self):
+        '''
+        Trata colisões do objeto dinossauro com os objetos moeda ou objetos pedra.
+        '''
+        
+        if self.conteudo_do_jogo['objetos']:
+            for objeto in self.conteudo_do_jogo['objetos']:
+                if self.conteudo_do_jogo['dinossauro'].retangulo.colliderect(objeto.retangulo):
+
+                    if objeto.__str__() == 'Stone_Object':
+                        return True
+
+                    elif objeto.__str__() == 'Coin_Object':
+                        self.conteudo_do_jogo['objetos'].remove(objeto)
+                        self.pontuacao_bonus += 10
+                        return False
+            else:
+                return False
 
     def atualiza_score(self):
         '''
