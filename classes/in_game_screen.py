@@ -43,7 +43,7 @@ class In_Game_Screen(Start_Screen):
         #Evento utilizado para criação de objetos do jogo.
         object_timer = py.USEREVENT + 1
         py.time.set_timer(object_timer, 1400)
-
+        
         while True:
             for event in py.event.get():
                 if event.type == py.QUIT:
@@ -71,6 +71,7 @@ class In_Game_Screen(Start_Screen):
                 #Movimentação dos objetos do jogo na tela.
                 self.conteudo_do_jogo['objetos'] = movimenta_objetos(self.screen, self.conteudo_do_jogo['objetos'])
                 
+               
                 self.display_score(True)
 
                 #Atualiza tela.
@@ -81,18 +82,25 @@ class In_Game_Screen(Start_Screen):
             else:
                 break
 
+
+     
     ##Função para mostrar score
     def display_score(self, active):
-        pontuacao = 0
-        if active == True:
-            pontuacao += py.time.get_ticks()//1000 
+        if active == True and self.jogador.score//1000 >= 1:
+            self.jogador.score = (py.time.get_ticks()-self.jogador.score)//1000
             font = fonte_principal(40)  
-            score_surface = font.render(f'Score: {str(pontuacao)}', False, 'black')
+            score_surface = font.render(f'Score: {str(self.jogador.score)}', False, 'black')
             score_rectangle = score_surface.get_rect(midtop = (400, 40))
-            self.screen.blit(score_surface, score_rectangle)  
+            self.screen.blit(score_surface, score_rectangle)
+        elif active == True and self.jogador.score == 0:
+            self.jogador.score =+ py.time.get_ticks()//1000
+            font = fonte_principal(40)  
+            score_surface = font.render(f'Score: {str(self.jogador.score)}', False, 'black')
+            score_rectangle = score_surface.get_rect(midtop = (400, 40))
+            self.screen.blit(score_surface, score_rectangle)     
         else:
             font = fonte_principal(40)  
-            score_surface = font.render(f'Score: {str(pontuacao)}', False, 'white')
+            score_surface = font.render(f'Score: {str(self.jogador.score)}', False, 'white')
             score_rectangle = score_surface.get_rect(midtop = (400, 100))
             self.screen.blit(score_surface, score_rectangle) 
 
@@ -101,7 +109,6 @@ class In_Game_Screen(Start_Screen):
         '''
         Redefine atributos para reiniciar a jogatina.
         '''
-
         self.conteudo_do_jogo['objetos'] = list()
         self.conteudo_do_jogo['dinossauro'].reset_attributes()
 

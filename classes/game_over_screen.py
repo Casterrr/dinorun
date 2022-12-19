@@ -80,16 +80,17 @@ class Game_Over_Screen(In_Game_Screen):
         Exibe pontuação final do ultimo jogador.
         '''
         self.display_score(False)
+
         pass
     
     def restart_game(self):
         '''
         Redefine atributos para reiniciar a jogatina.
         '''
-
         self.conteudo_do_jogo['objetos'] = list()
         self.conteudo_do_jogo['dinossauro'].reset_attributes()
         self.jogador = Player()
+        self.jogador.score = py.time.get_ticks()
     
     def main():
         pass

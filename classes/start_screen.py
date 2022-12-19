@@ -26,7 +26,7 @@ class Start_Screen():
 
         conteudo_da_tela = [(self.texto_da_tela_de_incio, (160, -20)), (self.texto_input_box, (290, 140)), (self.texto_instrutivo_iniciar_jogo, (295, 370))]
 
-        self.display_score(True)
+        ##self.display_score(True)
         self.screen.fill('#112e0a')
 
         for objeto in conteudo_da_tela:
@@ -57,6 +57,8 @@ class Start_Screen():
                         else:
                             self.jogador.nome = self.input_box_nome_do_jogador.texto
                             in_start_game_screen = False
+                        self.jogador.score = py.time.get_ticks()//1000
+                        
                 
                 self.input_box_nome_do_jogador.manipulador_de_eventos(event)
             
