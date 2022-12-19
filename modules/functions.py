@@ -44,9 +44,11 @@ def movimenta_objetos(janela_do_jogo, lista_de_objetos):
             if objeto.__str__() == "Coin_Object":
                 objeto.move_para_esquerda(2)
                 janela_do_jogo.blit(objeto.get_image(), objeto.retangulo)
+
             elif objeto.__str__() == "Stone_Object":
                 objeto.move_para_esquerda(5)
                 janela_do_jogo.blit(objeto.get_image(), objeto.retangulo)
+                
             elif objeto.__str__() == "Cloud_Object":
                 objeto.move_para_esquerda(1)
                 janela_do_jogo.blit(objeto.get_image(), objeto.retangulo)
@@ -56,25 +58,6 @@ def movimenta_objetos(janela_do_jogo, lista_de_objetos):
 
     #Retorna lista atualizada.   
     return lista_de_objetos
-
-def colidiu_com_obstaculo(dino_rect, lista_de_objetos):
-    '''
-    Retorna True se houver colisão entre o dinossauro e um objeto não moeda, e False se não.
-    Se houver colisão entre o dinossauro e uma moeda, faz a moeda desaparecer.
-    '''
-    
-    if lista_de_objetos:
-        for objeto in lista_de_objetos:
-            if dino_rect.colliderect(objeto.retangulo):
-                if objeto.__str__() == 'Coin_Object':
-                    lista_de_objetos.remove(objeto)
-                    return False
-                if objeto.__str__() == 'Cloud_Object':
-                    return False
-                else:
-                    return True
-        else:
-            return False
 
 def main():
     pass

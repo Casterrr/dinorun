@@ -28,7 +28,8 @@ class Input_Box():
                     self.texto = self.texto[:-1]
                 else:
                     if len(self.texto) <= 20:
-                        self.texto += evento.unicode
+                        if evento.unicode != " ":
+                            self.texto += evento.unicode
                 self.superficie_de_texto = fonte_principal(50).render(self.texto, True, (0,0,0))
 
     def atualiza_dimensoes(self):

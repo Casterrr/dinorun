@@ -25,7 +25,10 @@ class Start_Screen():
         Adiciona imagens/objetos/elementos à tela - tela do jogo durante a tela inicial (anterior à jogatina).
         '''
 
-        conteudo_da_tela = [(self.texto_da_tela_de_incio, (160, -20)), (self.texto_input_box, (290, 140)), (self.texto_instrutivo_iniciar_jogo, (295, 370))]
+        conteudo_da_tela = [ (self.texto_da_tela_de_incio, (160, -20)), 
+                             (self.texto_input_box, (290, 140)), 
+                             (self.texto_instrutivo_iniciar_jogo, 
+                             (295, 370)) ]
 
         self.screen.fill('#112e0a')
 
