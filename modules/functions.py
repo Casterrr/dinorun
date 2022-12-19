@@ -1,5 +1,6 @@
 import pygame as py
 from random import randint
+
 from classes.coin import Coin
 from classes.stone import Stone
 from classes.cloud import Cloud

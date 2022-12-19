@@ -1,6 +1,7 @@
 import pygame as py
 
 from modules.functions import fonte_tela_inicial_ou_final
+
 from classes.input_box import Input_Box
 from classes.player import Player
 

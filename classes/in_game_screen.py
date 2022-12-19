@@ -17,7 +17,16 @@ class In_Game_Screen(Start_Screen):
         self.cabecalho_do_jogo = fonte_principal(50).render("Dinorun", False, '#44b528')
         self.background_image = py.image.load('./assets/graphics/Blue-Clean-Sky.png').convert_alpha()
         self.ground_image = py.image.load('./assets/graphics/Green-Ground.png').convert_alpha()
+
+        self.momento_de_inicio_do_jogo = int()
+        self.momento_em_tempo_real_do_jogo = int()
+
+        self.pontuacao_por_tempo = (self.momento_em_tempo_real_do_jogo - self.momento_de_inicio_do_jogo) / 100
+        self.pontuacao_bonus = int()
         
+        self.score = int()
+        self.texto_score = fonte_principal(35).render(f"Score: {str(self.score)}", False, 'Black')
+
         self.conteudo_do_jogo = dict()
         self.game_clock_variable = None
     
@@ -26,8 +35,11 @@ class In_Game_Screen(Start_Screen):
         Adiciona imagens/objetos/elementos à tela - tela do jogo durante a jogatina.
         '''
 
-        conteudo_da_tela = [ (self.background_image, (0, 0)), (self.ground_image, (0, 300)), (self.cabecalho_do_jogo, (20, 20)), 
-                            (self.conteudo_do_jogo['dinossauro'].get_image(), self.conteudo_do_jogo['dinossauro'].retangulo) ]
+        conteudo_da_tela = [ (self.background_image, (0, 0)), 
+                             (self.ground_image, (0, 300)), 
+                             (self.cabecalho_do_jogo, (20, 20)), 
+                             (self.conteudo_do_jogo['dinossauro'].get_image(), self.conteudo_do_jogo['dinossauro'].retangulo),
+                             (self.texto_score, (360, 20)) ]
         
         for objeto in conteudo_da_tela:
             self.screen.blit(objeto[0], objeto[1])
@@ -41,6 +53,8 @@ class In_Game_Screen(Start_Screen):
         #Evento utilizado para criação de objetos do jogo.
         object_timer = py.USEREVENT + 1
         py.time.set_timer(object_timer, 1400)
+
+        self.momento_de_inicio_do_jogo = int(py.time.get_ticks())
 
         while True:
             for event in py.event.get():
@@ -59,6 +73,7 @@ class In_Game_Screen(Start_Screen):
                     self.conteudo_do_jogo['objetos'].append(cria_objetos())
             
             if not colidiu_com_obstaculo(self.conteudo_do_jogo['dinossauro'].retangulo, self.conteudo_do_jogo['objetos']):
+
                 #Efeito de pulo do dinossauro na tela.
                 self.conteudo_do_jogo['dinossauro'].dino_jump()
                 self.conteudo_do_jogo['dinossauro'].gravidade_sofrida += 1
@@ -72,11 +87,32 @@ class In_Game_Screen(Start_Screen):
                 #Atualiza tela.
                 py.display.flip()
 
+                #Atualiza score.
+                self.atualiza_score()
+
                 #Define FPS do jogo.
                 self.game_clock_variable.tick(60)
             else:
+                print(self.score)
                 break
-            
+
+    def atualiza_score(self):
+        '''
+        Atualiza variáveis do score.
+        '''
+
+        def atualiza_pontuacao_por_tempo():
+            '''
+            Atualiza variável de pontuação por tempo.
+            '''
+
+            self.momento_em_tempo_real_do_jogo = py.time.get_ticks()
+            self.pontuacao_por_tempo = (self.momento_em_tempo_real_do_jogo - self.momento_de_inicio_do_jogo) / 100
+
+        atualiza_pontuacao_por_tempo()
+        self.score = int(self.pontuacao_por_tempo + self.pontuacao_bonus)
+        self.texto_score = fonte_principal(35).render(f"Score: {str(self.score)}", False, 'Black')
+
     def main():
         pass
 
