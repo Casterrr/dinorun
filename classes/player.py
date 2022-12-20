@@ -4,7 +4,15 @@ class Player():
         self.score = int()
     
     def get_nome(self):
+        '''
+        Retorna nome do jogador.
+        '''
+
         return str(self.nome)
     
     def get_score(self):
+        '''
+        Retorna score do jogador.
+        '''
+
         return str(self.score)

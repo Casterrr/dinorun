@@ -26,12 +26,16 @@ class Coin():
         # Altera a imagem exibida de acordo com a parte inteira do valor da variável _img_path_index.
         if int(self._img_path_index) == 1:
             return py.image.load(self._img_path[0]).convert_alpha()
+
         elif int(self._img_path_index) == 2:
             return py.image.load(self._img_path[1]).convert_alpha()
+
         elif int(self._img_path_index) == 3:
             if self._img_path_index >= 3.9:
                 self._img_path_index = 0
+                
             return py.image.load(self._img_path[2]).convert_alpha()
+
         else:
             return py.image.load(self._img_path[0])
 

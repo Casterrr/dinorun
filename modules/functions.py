@@ -29,6 +29,7 @@ def cria_objetos():
     
     if randint(0,1) == randint(0,1) == randint(0,1):
         return Cloud()
+        
     else:
         return Stone()
 

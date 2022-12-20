@@ -17,7 +17,7 @@ class Start_Screen():
         self.texto_instrutivo_iniciar_jogo = fonte_tela_inicial_ou_final(30).render("- Pressione 'Enter' para iniciar o jogo -", False, 'Yellow')
         self.texto_input_box = fonte_tela_inicial_ou_final(100).render("Player name:", False, 'Green')
 
-        self.input_box_nome_do_jogador = Input_Box(150,200,500,50)
+        self.input_box_nome_do_jogador = Input_Box(150, 215, 500, 50)
         self.jogador = Player()
 
         self.intro_sound = py.mixer.Sound('./assets/sounds/intro.mp3')
@@ -28,7 +28,7 @@ class Start_Screen():
         '''
 
         conteudo_da_tela = [ (self.texto_da_tela_de_incio, (160, -20)), 
-                             (self.texto_input_box, (290, 140)), 
+                             (self.texto_input_box, (290, 150)), 
                              (self.texto_instrutivo_iniciar_jogo, 
                              (295, 370)) ]
 
@@ -58,8 +58,9 @@ class Start_Screen():
 
                 if event.type == py.KEYDOWN:
                     if event.key == py.K_KP_ENTER or event.key == py.K_RETURN:
-                        # self.intro_sound.fadeout(1000)
+                        
                         self.intro_sound.stop()
+
                         if self.input_box_nome_do_jogador.texto == '':
                             self.jogador.nome = 'Anonimo'
                             in_start_game_screen = False
