@@ -55,15 +55,14 @@ class Start_Screen():
                 if event.type == py.KEYDOWN:
                     if event.key == py.K_KP_ENTER or event.key == py.K_RETURN:
                         if self.input_box_nome_do_jogador.texto == '':
-                            self.jogador.nome = 'Jogador Anônimo'
+                            self.jogador.nome = 'Anonimo'
                             in_start_game_screen = False
                         else:
                             self.jogador.nome = self.input_box_nome_do_jogador.texto
                             in_start_game_screen = False
                 
                 self.input_box_nome_do_jogador.manipulador_de_eventos(event)
-            
-            self.input_box_nome_do_jogador.atualiza_dimensoes()
+                
             self.input_box_nome_do_jogador.desenha_caixa_de_texto_na_tela(self.screen)
             self.adiciona_conteudo_tela_de_inicio()
 

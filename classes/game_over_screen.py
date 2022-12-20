@@ -1,6 +1,6 @@
 import pygame as py
 
-from modules.functions import fonte_tela_inicial_ou_final
+from modules.functions import fonte_principal, fonte_tela_inicial_ou_final
 
 from classes.in_game_screen import In_Game_Screen
 from classes.player import Player
@@ -15,16 +15,21 @@ class Game_Over_Screen(In_Game_Screen):
         self.screen = py.display.set_mode((self._largura, self._altura))
 
         self.texto_de_fim_de_jogo = fonte_tela_inicial_ou_final(200).render("Game Over", False, 'Red')
-        self.texto_score_final = fonte_tela_inicial_ou_final(50).render(f"{self.jogador.nome}: {self.jogador.score}", False, 'Black')
         self.texto_instrutivo_reiniciar_jogo = fonte_tela_inicial_ou_final(30).render("- Pressione 'Enter' para reiniciar o jogo -", False, 'Yellow')
 
     def adiciona_conteudo_tela_final(self):
         '''
         Adiciona imagens/objetos/elementos à tela - tela do jogo durante a tela final (após à jogatina).
         '''
+        
+        texto_score_final = fonte_principal(50).render(f"{self.jogador.nome}: {self.jogador.score}", False, 'Green')
+        retangulo_texto_score_final = texto_score_final.get_rect()
+
+        #Posição do texto no centro da tela.
+        posicao_retangulo_do_texto_score_final = ( int((self._largura - retangulo_texto_score_final.size[0]) / 2), 120)
 
         conteudo_da_tela = [ (self.texto_de_fim_de_jogo, (215, -20)),
-                             (self.texto_score_final, (350, 120)),
+                             (texto_score_final, posicao_retangulo_do_texto_score_final),
                              (self.texto_instrutivo_reiniciar_jogo, (290, 370)) ]
 
         self.screen.fill('#112e0a')
