@@ -7,6 +7,7 @@ class Coin():
         self._img_path_index = 0
         self._y_pos = 210
         self.retangulo = self.get_image().get_rect(midbottom = (randint(900, 1100), self._y_pos))
+        self.coin_sound = py.mixer.Sound('./assets/sounds/coin.mp3')
 
     def __str__(self):
         '''

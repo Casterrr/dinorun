@@ -29,6 +29,8 @@ class In_Game_Screen(Start_Screen):
 
         self.conteudo_do_jogo = dict()
         self.game_clock_variable = None
+
+        self.in_game_sound = py.mixer.Sound('./assets/sounds/in-game-sound.mp3')
     
     def adiciona_conteudo_tela_durante_jogo(self):
         '''
@@ -49,7 +51,7 @@ class In_Game_Screen(Start_Screen):
         Exibe tela de jogatina (gameplay).
         Se houver colisão com algum obstáculo que não seja moeda, interrompe a exibição da tela.
         '''
-        
+        self.in_game_sound.play(loops=-1, fade_ms=1000)
         #Evento utilizado para criação de objetos do jogo.
         object_timer = py.USEREVENT + 1
         py.time.set_timer(object_timer, 1400)
@@ -57,6 +59,7 @@ class In_Game_Screen(Start_Screen):
         self.momento_de_inicio_do_jogo = int(py.time.get_ticks())
 
         while True:
+            
             for event in py.event.get():
                 if event.type == py.QUIT:
                     py.quit()
@@ -66,6 +69,7 @@ class In_Game_Screen(Start_Screen):
                 if event.type == py.KEYDOWN:
                     if self.conteudo_do_jogo['dinossauro'].retangulo.bottom == 310:
                         if event.key == py.K_UP:
+                            self.conteudo_do_jogo['dinossauro'].jump_sound.play()
                             self.conteudo_do_jogo['dinossauro'].gravidade_sofrida = -18
                 
                 #Criação de objetos do jogo.
@@ -106,10 +110,12 @@ class In_Game_Screen(Start_Screen):
                 if self.conteudo_do_jogo['dinossauro'].retangulo.colliderect(objeto.retangulo):
 
                     if objeto.__str__() == 'Stone_Object':
+                        self.in_game_sound.fadeout(500)
                         return True
 
                     elif objeto.__str__() == 'Coin_Object':
                         self.conteudo_do_jogo['objetos'].remove(objeto)
+                        objeto.coin_sound.play()
                         self.pontuacao_bonus += 10
                         return False
             else:
