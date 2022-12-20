@@ -17,7 +17,7 @@ class Start_Screen():
         self.texto_instrutivo_iniciar_jogo = fonte_tela_inicial_ou_final(30).render("- Pressione 'Enter' para iniciar o jogo -", False, 'Yellow')
         self.texto_input_box = fonte_tela_inicial_ou_final(100).render("Player name:", False, 'Green')
 
-        self.input_box_nome_do_jogador = Input_Box(150,200,500,50)
+        self.input_box_nome_do_jogador = Input_Box(150, 215, 500, 50)
         self.jogador = Player()
 
     def adiciona_conteudo_tela_de_inicio(self):
@@ -26,7 +26,7 @@ class Start_Screen():
         '''
 
         conteudo_da_tela = [ (self.texto_da_tela_de_incio, (160, -20)), 
-                             (self.texto_input_box, (290, 140)), 
+                             (self.texto_input_box, (290, 150)), 
                              (self.texto_instrutivo_iniciar_jogo, 
                              (295, 370)) ]
 
