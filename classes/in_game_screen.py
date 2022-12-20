@@ -51,7 +51,9 @@ class In_Game_Screen(Start_Screen):
         Exibe tela de jogatina (gameplay).
         Se houver colisão com algum obstáculo que não seja moeda, interrompe a exibição da tela.
         '''
+
         self.in_game_sound.play(loops=-1, fade_ms=1000)
+        
         #Evento utilizado para criação de objetos do jogo.
         object_timer = py.USEREVENT + 1
         py.time.set_timer(object_timer, 1400)

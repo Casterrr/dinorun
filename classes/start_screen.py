@@ -58,8 +58,9 @@ class Start_Screen():
 
                 if event.type == py.KEYDOWN:
                     if event.key == py.K_KP_ENTER or event.key == py.K_RETURN:
-                        # self.intro_sound.fadeout(1000)
+                        
                         self.intro_sound.stop()
+
                         if self.input_box_nome_do_jogador.texto == '':
                             self.jogador.nome = 'Anonimo'
                             in_start_game_screen = False

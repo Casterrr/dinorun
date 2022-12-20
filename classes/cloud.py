@@ -19,6 +19,7 @@ class Cloud():
         '''
         Retorna imagem do objeto/elemento moeda.
         '''
+
         return py.image.load(self._img_path)
 
     def move_para_esquerda(self, deslocamento):
@@ -30,5 +31,6 @@ class Cloud():
     
     def main():
         pass
+
 if __name__ == '__main__':
     Cloud().main()

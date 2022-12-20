@@ -31,6 +31,7 @@ class Input_Box():
                     if len(self.texto) <= 20:
                         if evento.unicode != " ":
                             self.texto += evento.unicode
+                            
                 self.superficie_de_texto = fonte_principal(50).render(self.texto, True, (0,0,0))
 
     def desenha_caixa_de_texto_na_tela(self, screen):
