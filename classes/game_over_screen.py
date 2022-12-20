@@ -93,37 +93,6 @@ class Game_Over_Screen(In_Game_Screen):
             self.adiciona_conteudo_tela_final()
             py.display.flip()
 
-    def adiciona_jogador_ao_ranking(self, ranking_file, jogador):
-        '''
-        Adiciona dados do jogador ao ranking.
-        '''
-
-        def valida_insercao_no_ranking(self, ranking_file, jogador):
-            '''
-            Verifica se o jogador atende aos requisitos para entrar no ranking.
-            Retorna True se sim, e False se não.
-            '''
-
-            pass
-
-    def get_top_ranking(self, ranking_file):
-        '''
-        Exibe ranking (Top 5 Pontuações).
-        '''
-
-        def get_first_place():
-            pass
-
-        def get_second_place():
-            pass
-
-        def get_third_place():
-            pass
-
-        get_first_place()
-        get_second_place()
-        get_third_place()
-
     def restart_game(self):
         '''
         Redefine atributos para reiniciar a jogatina.
