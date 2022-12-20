@@ -20,6 +20,8 @@ class Start_Screen():
         self.input_box_nome_do_jogador = Input_Box(150, 215, 500, 50)
         self.jogador = Player()
 
+        self.intro_sound = py.mixer.Sound('./assets/sounds/intro.mp3')
+
     def adiciona_conteudo_tela_de_inicio(self):
         '''
         Adiciona imagens/objetos/elementos à tela - tela do jogo durante a tela inicial (anterior à jogatina).
@@ -44,6 +46,8 @@ class Start_Screen():
         Se nenhum nome for digitado pelo usuário, retorna o texto 'Jogador Anônimo'.
         '''
 
+        self.intro_sound.play(fade_ms=1000)
+
         in_start_game_screen = True
 
         while in_start_game_screen:
@@ -54,6 +58,8 @@ class Start_Screen():
 
                 if event.type == py.KEYDOWN:
                     if event.key == py.K_KP_ENTER or event.key == py.K_RETURN:
+                        # self.intro_sound.fadeout(1000)
+                        self.intro_sound.stop()
                         if self.input_box_nome_do_jogador.texto == '':
                             self.jogador.nome = 'Anonimo'
                             in_start_game_screen = False

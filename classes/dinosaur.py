@@ -10,7 +10,8 @@ class Dinosaur():
         self.is_jumping = False
         self.retangulo = self.get_image().get_rect(midbottom = (80, 310))
         self.gravidade_sofrida = 0
-
+        self.jump_sound = py.mixer.Sound('./assets/sounds/jump.mp3')
+        
     def __str__(self):
         '''
         Representação do objeto Dinossauro em string.
@@ -35,9 +36,12 @@ class Dinosaur():
         '''
         Esta função é responsável pelo efeito de pulo do dinossauro na tela.
         '''
+        
 
         self.is_jumping = True
         self.retangulo.y += self.gravidade_sofrida
+
+        
 
         # Faz com que o dinossauro nunca passe do piso.
         if self.retangulo.bottom > 310:

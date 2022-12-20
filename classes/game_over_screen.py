@@ -17,6 +17,7 @@ class Game_Over_Screen(In_Game_Screen):
         self.texto_de_fim_de_jogo = fonte_tela_inicial_ou_final(200).render("Game Over", False, 'Red')
         self.texto_instrutivo_reiniciar_jogo = fonte_tela_inicial_ou_final(30).render("- Pressione 'Enter' para reiniciar o jogo -", False, 'Yellow')
 
+        self.game_over_sound = py.mixer.Sound('./assets/sounds/game-over.mp3')
     def adiciona_conteudo_tela_final(self):
         '''
         Adiciona imagens/objetos/elementos à tela - tela do jogo durante a tela final (após à jogatina).
@@ -73,7 +74,7 @@ class Game_Over_Screen(In_Game_Screen):
         Exibe tela de game over (após à jogatina).
         Se alguma tecla for precionada, interrompe a exibição da tela.
         '''
-        
+        self.game_over_sound.play()
         in_game_over_screen = True
 
         while in_game_over_screen:
