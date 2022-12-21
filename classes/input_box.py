@@ -28,7 +28,7 @@ class Input_Box():
                 if evento.key == py.K_BACKSPACE:
                     self.texto = self.texto[:-1]
                 else:
-                    if len(self.texto) <= 20:
+                    if len(self.texto) <= 19:
                         if evento.unicode != " ":
                             self.texto += evento.unicode
                             

@@ -60,6 +60,70 @@ def movimenta_objetos(janela_do_jogo, lista_de_objetos):
     #Retorna lista atualizada.   
     return lista_de_objetos
 
+def create_database(path="modules/database.db"):
+    '''
+    Cria arquivo de banco de dados 'database.db' com a tabela Ranking no diretório 'modules/' por padrão.
+    '''
+
+    #Importando biblioteca do banco de dados.
+    import sqlite3 as sql3
+
+    #Estabelecendo conexão com o bando de dados.
+    conexao = sql3.connect(path)
+
+    with conexao:
+        cursor = conexao.cursor()
+        
+        #Criando tabela Ranking.
+        cursor.execute("""CREATE TABLE Ranking(id INTEGER, colocacao INTEGER, nome TEXT, score INTEGER, 
+                        PRIMARY KEY(id AUTOINCREMENT) )""")
+    
+def valida_requisitos_para_insercao_no_ranking(ranking, jogador):
+    '''
+    Confere se um dado jogador pode entrar no top ranking.
+    Se sim, retorna um Integer correspondente a colocação do jogador no pódio.
+    Caso não, retorna False.
+    '''
+
+    #Confere se o ranking possui colocações vazias.
+    if not ranking.primeiro_lugar:
+        return 1
+    else:
+        if not ranking.segundo_lugar:
+            return 2
+        else:
+            if not ranking.terceiro_lugar:
+                return 3
+
+    #Realiza conferência proposta pela função.
+    if jogador.score >= ranking.terceiro_lugar.score:
+        if jogador.score >= ranking.segundo_lugar.score:
+            if jogador.score >= ranking.primeiro_lugar.score:
+                return int(1)
+            else:
+                return int(2)
+        else:
+            return int(3)
+    else:
+        return False
+
+def insere_jogador_no_ranking(ranking, jogador, colocacao):
+    '''
+    Adiciona jogador a um ranking e em sua respectiva colocação.
+    Atualiza o ranking caso necessário.
+    '''
+
+    match colocacao:
+        case 1:
+            ranking.terceiro_lugar = ranking.segundo_lugar
+            ranking.segundo_lugar = ranking.primeiro_lugar
+            ranking.primeiro_lugar = jogador
+        case 2:
+            ranking.terceiro_lugar = ranking.segundo_lugar
+            ranking.segundo_lugar = jogador
+        case 3:
+            ranking.terceiro_lugar = jogador
+
 def main():
     pass
 
