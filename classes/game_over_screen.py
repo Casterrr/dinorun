@@ -38,7 +38,7 @@ class Game_Over_Screen(In_Game_Screen):
         '''
 
         #Exibe moldura do top ranking.
-        quadro_top_ranking = py.Rect(175, 160, 450, 200)
+        quadro_top_ranking = py.Rect(145, 160, 510, 200)
         py.draw.rect(self.screen, '#44b528', quadro_top_ranking, 2)
 
         #Adiciona na tela cabeçalho do top ranking.
@@ -48,17 +48,17 @@ class Game_Over_Screen(In_Game_Screen):
 
         #Adiciona na tela o título de colocação (primeiro lugar).
         texto_primeiro_lugar = fonte_principal(35).render(f"1st", False, '#44b528')
-        retangulo_texto_primeiro_lugar = texto_primeiro_lugar.get_rect(topleft=(quadro_top_ranking.left+15, 235))
+        retangulo_texto_primeiro_lugar = texto_primeiro_lugar.get_rect(topleft=(quadro_top_ranking.left+75, 235))
         self.screen.blit(texto_primeiro_lugar, retangulo_texto_primeiro_lugar)
 
         #Adiciona na tela o título de colocação em (segundo lugar).
         texto_segundo_lugar = fonte_principal(35).render(f"2nd", False, '#44b528')
-        retangulo_texto_segundo_lugar = texto_segundo_lugar.get_rect(topleft=(quadro_top_ranking.left+15, 275))
+        retangulo_texto_segundo_lugar = texto_segundo_lugar.get_rect(topleft=(quadro_top_ranking.left+75, 275))
         self.screen.blit(texto_segundo_lugar, retangulo_texto_segundo_lugar)
 
         #Adiciona na tela o título de colocação (terceiro lugar).
         texto_terceiro_lugar = fonte_principal(35).render(f"3rd", False, '#44b528')
-        retangulo_texto_terceiro_lugar = texto_terceiro_lugar.get_rect(topleft=(quadro_top_ranking.left+15, 315))
+        retangulo_texto_terceiro_lugar = texto_terceiro_lugar.get_rect(topleft=(quadro_top_ranking.left+75, 315))
         self.screen.blit(texto_terceiro_lugar, retangulo_texto_terceiro_lugar)
 
         #Adiciona dados do primeiro colocado no top ranking.
@@ -67,8 +67,8 @@ class Game_Over_Screen(In_Game_Screen):
             retangulo_texto_sem_jogador = texto_sem_jogador.get_rect(center=(quadro_top_ranking.center[0], 245))
             self.screen.blit(texto_sem_jogador, retangulo_texto_sem_jogador)
 
-            texto_score_jogador = fonte_principal(35).render(f"- - -", False, '#44b528')
-            retangulo_texto_score_jogador = texto_score_jogador.get_rect(topright=(quadro_top_ranking.right-15, 245))
+            texto_score_jogador = fonte_principal(35).render(f"- - - -", False, '#44b528')
+            retangulo_texto_score_jogador = texto_score_jogador.get_rect(topright=(quadro_top_ranking.right-15, retangulo_texto_sem_jogador.top))
             self.screen.blit(texto_score_jogador, retangulo_texto_score_jogador)
 
         else:
@@ -77,7 +77,7 @@ class Game_Over_Screen(In_Game_Screen):
             self.screen.blit(texto_nome_do_jogador, retangulo_texto_nome_do_jogador)
 
             texto_score_jogador = fonte_principal(35).render(f"{self.ranking.primeiro_lugar.score}", False, '#44b528')
-            retangulo_texto_score_jogador = texto_score_jogador.get_rect(topright=(quadro_top_ranking.right-15, retangulo_texto_nome_do_jogador.right))
+            retangulo_texto_score_jogador = texto_score_jogador.get_rect(topright=(quadro_top_ranking.right-15, retangulo_texto_nome_do_jogador.top))
             self.screen.blit(texto_score_jogador, retangulo_texto_score_jogador)
 
         #Adiciona dados do segundo colocado no top ranking.
@@ -86,8 +86,8 @@ class Game_Over_Screen(In_Game_Screen):
             retangulo_texto_sem_jogador = texto_sem_jogador.get_rect(center=(quadro_top_ranking.center[0], 285))
             self.screen.blit(texto_sem_jogador, retangulo_texto_sem_jogador)
 
-            texto_score_jogador = fonte_principal(35).render(f"- - -", False, '#44b528')
-            retangulo_texto_score_jogador = texto_score_jogador.get_rect(topright=(quadro_top_ranking.right-15, 285))
+            texto_score_jogador = fonte_principal(35).render(f"- - - -", False, '#44b528')
+            retangulo_texto_score_jogador = texto_score_jogador.get_rect(topright=(quadro_top_ranking.right-15, retangulo_texto_sem_jogador.top))
             self.screen.blit(texto_score_jogador, retangulo_texto_score_jogador)
 
         else:
@@ -96,7 +96,7 @@ class Game_Over_Screen(In_Game_Screen):
             self.screen.blit(texto_nome_do_jogador, retangulo_texto_nome_do_jogador)
 
             texto_score_jogador = fonte_principal(35).render(f"{self.ranking.segundo_lugar.score}", False, '#44b528')
-            retangulo_texto_score_jogador = texto_score_jogador.get_rect(topright=(quadro_top_ranking.right-15, 285))
+            retangulo_texto_score_jogador = texto_score_jogador.get_rect(topright=(quadro_top_ranking.right-15, retangulo_texto_nome_do_jogador.top))
             self.screen.blit(texto_score_jogador, retangulo_texto_score_jogador)
 
         #Adiciona dados do terceiro colocado no top ranking.
@@ -105,8 +105,8 @@ class Game_Over_Screen(In_Game_Screen):
             retangulo_texto_sem_jogador = texto_sem_jogador.get_rect(center=(quadro_top_ranking.center[0], 325))
             self.screen.blit(texto_sem_jogador, retangulo_texto_sem_jogador)
 
-            texto_score_jogador = fonte_principal(35).render(f"- - -", False, '#44b528')
-            retangulo_texto_score_jogador = texto_score_jogador.get_rect(topright=(quadro_top_ranking.right-15, 235))
+            texto_score_jogador = fonte_principal(35).render(f"- - - -", False, '#44b528')
+            retangulo_texto_score_jogador = texto_score_jogador.get_rect(topright=(quadro_top_ranking.right-15, retangulo_texto_sem_jogador.top))
             self.screen.blit(texto_score_jogador, retangulo_texto_score_jogador)
 
         else:
@@ -115,7 +115,7 @@ class Game_Over_Screen(In_Game_Screen):
             self.screen.blit(texto_nome_do_jogador, retangulo_texto_nome_do_jogador)
 
             texto_score_jogador = fonte_principal(35).render(f"{self.ranking.terceiro_lugar.score}", False, '#44b528')
-            retangulo_texto_score_jogador = texto_score_jogador.get_rect(topright=(quadro_top_ranking.right-15, 325))
+            retangulo_texto_score_jogador = texto_score_jogador.get_rect(topright=(quadro_top_ranking.right-15, retangulo_texto_nome_do_jogador.top))
             self.screen.blit(texto_score_jogador, retangulo_texto_score_jogador)
 
     def adiciona_conteudo_tela_final(self):
