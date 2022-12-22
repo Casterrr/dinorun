@@ -8,7 +8,7 @@ class Input_Box():
         self.retangulo = py.Rect(x, y, largura, altura)
         self.cor = (0,100,0)
         self.texto = texto
-        self.superficie_de_texto = fonte_principal(50).render(self.texto, True, (0,0,0))
+        self.superficie_de_texto = fonte_principal(50).render(self.texto, True, "white")
         self.status = False
 
     def manipulador_de_eventos(self, evento):
@@ -32,7 +32,7 @@ class Input_Box():
                         if evento.unicode != " ":
                             self.texto += evento.unicode
                             
-                self.superficie_de_texto = fonte_principal(50).render(self.texto, True, (0,0,0))
+                self.superficie_de_texto = fonte_principal(50).render(self.texto, True, "white")
 
     def desenha_caixa_de_texto_na_tela(self, screen):
         '''

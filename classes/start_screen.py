@@ -13,11 +13,12 @@ class Start_Screen():
 
         self.screen = py.display.set_mode((self._largura, self._altura))
 
-        self.texto_da_tela_de_incio = fonte_tela_inicial_ou_final(200).render("Start Playing", False, 'Green')
+        self.background_inicial_image = py.image.load('./assets/graphics/Tela-Inicial.jpg').convert_alpha()
+        ##self.texto_da_tela_de_incio = fonte_tela_inicial_ou_final(200).render("Start Playing", False, 'Green')
         self.texto_instrutivo_iniciar_jogo = fonte_tela_inicial_ou_final(30).render("- Pressione 'Enter' para iniciar o jogo -", False, 'Yellow')
         self.texto_input_box = fonte_tela_inicial_ou_final(100).render("Player name:", False, 'Green')
 
-        self.input_box_nome_do_jogador = Input_Box(150, 215, 500, 50)
+        self.input_box_nome_do_jogador = Input_Box(150, 235, 500, 50)
         self.jogador = Player()
 
         self.intro_sound = py.mixer.Sound('./assets/sounds/intro.mp3')
@@ -27,12 +28,12 @@ class Start_Screen():
         Adiciona imagens/objetos/elementos à tela - tela do jogo durante a tela inicial (anterior à jogatina).
         '''
 
-        conteudo_da_tela = [ (self.texto_da_tela_de_incio, (160, -20)), 
-                             (self.texto_input_box, (290, 150)), 
+        conteudo_da_tela = [ (self.background_inicial_image, (0, 0)), 
+                             (self.texto_input_box, (290, 170)), 
                              (self.texto_instrutivo_iniciar_jogo, 
                              (295, 370)) ]
 
-        self.screen.fill('#112e0a')
+        ##self.screen.fill('#112e0a')
 
         for objeto in conteudo_da_tela:
             self.screen.blit(objeto[0], objeto[1])
