@@ -33,7 +33,6 @@ class Start_Screen():
                              (self.texto_instrutivo_iniciar_jogo, 
                              (295, 370)) ]
 
-        ##self.screen.fill('#112e0a')
 
         for objeto in conteudo_da_tela:
             self.screen.blit(objeto[0], objeto[1])

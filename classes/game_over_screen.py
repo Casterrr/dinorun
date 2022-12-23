@@ -3,7 +3,7 @@ import pygame as py
 from modules.functions import fonte_principal, fonte_tela_inicial_ou_final
 
 from classes.in_game_screen import In_Game_Screen
-from classes.player import Player
+from classes.start_screen import Start_Screen
 
 class Game_Over_Screen(In_Game_Screen):
     def __init__(self):
@@ -15,7 +15,8 @@ class Game_Over_Screen(In_Game_Screen):
         self.screen = py.display.set_mode((self._largura, self._altura))
 
         self.texto_de_fim_de_jogo = fonte_tela_inicial_ou_final(200).render("Game Over", False, 'Red')
-        self.texto_instrutivo_reiniciar_jogo = fonte_tela_inicial_ou_final(30).render("- Pressione 'Enter' para reiniciar o jogo -", False, 'Yellow')
+        self.texto_instrutivo_reiniciar_jogo = fonte_tela_inicial_ou_final(30).render("- Pressione 'Enter' para reiniciar o jogo ", False, 'Yellow')
+        self.texto_instrutivo_tela_inicial = fonte_tela_inicial_ou_final(30).render(" Ou 'Espaco' para volta a tela inicial -", False, 'Yellow')
 
         self.game_over_sound = py.mixer.Sound('./assets/sounds/game-over.mp3')
 
@@ -30,7 +31,8 @@ class Game_Over_Screen(In_Game_Screen):
             '''
 
             conteudo = [ (self.texto_de_fim_de_jogo, (215, -20)),
-                        (self.texto_instrutivo_reiniciar_jogo, (290, 370)) ]
+                        (self.texto_instrutivo_reiniciar_jogo, (290, 360)), 
+                        (self.texto_instrutivo_tela_inicial, (300, 375))]
 
             self.screen.fill('#112e0a')
 
@@ -47,7 +49,7 @@ class Game_Over_Screen(In_Game_Screen):
             self.screen.blit(pontuacao, pontuacao.get_rect(center=(self._largura/2, 120)))
 
             #Exibe moldura do top ranking.
-            quadro_top_ranking = py.Rect(175, 160, 450, 200)
+            quadro_top_ranking = py.Rect(175, 150, 450, 200)
             py.draw.rect(self.screen, '#44b528', quadro_top_ranking, 2)
 
             #Adiciona na tela cabeçalho do top ranking.
@@ -89,7 +91,11 @@ class Game_Over_Screen(In_Game_Screen):
                     if event.key == py.K_KP_ENTER or event.key == py.K_RETURN:
                         self.restart_game()
                         in_game_over_screen = False
-            
+                    if event.key == py.K_SPACE:
+                        self.exibe_tela_inicial_de_jogo()
+                        in_game_over_screen = False
+                        self.restart_game()
+             
             self.adiciona_conteudo_tela_final()
             py.display.flip()
 
@@ -100,7 +106,7 @@ class Game_Over_Screen(In_Game_Screen):
 
         self.conteudo_do_jogo['objetos'] = list()
         self.conteudo_do_jogo['dinossauro'].reset_attributes()
-        self.jogador = Player()
+        
     
     def main():
         pass
