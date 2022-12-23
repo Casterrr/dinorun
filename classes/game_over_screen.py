@@ -48,27 +48,6 @@ class Game_Over_Screen(In_Game_Screen):
             pontuacao = fonte_principal(50).render(f"{self.jogador.nome}: {self.jogador.score}", False, 'Orange')
             self.screen.blit(pontuacao, pontuacao.get_rect(center=(self._largura/2, 120)))
 
-            #Exibe moldura do top ranking.
-            quadro_top_ranking = py.Rect(175, 150, 450, 200)
-            py.draw.rect(self.screen, '#44b528', quadro_top_ranking, 2)
-
-            #Adiciona na tela cabeçalho do top ranking.
-            texto_high_score = fonte_principal(40).render(f"HIGH SCORES", False, '#44b528')
-            retangulo_high_score = texto_high_score.get_rect(center=(quadro_top_ranking.center[0], 190))
-            self.screen.blit(texto_high_score, retangulo_high_score)
-
-            #Adiciona na tela a pontuação em primeiro lugar.
-            texto_primeiro_lugar = fonte_principal(35).render(f"1st", False, '#44b528')
-            self.screen.blit(texto_primeiro_lugar, (190, 235))
-
-            #Adiciona na tela a pontuação em segundo lugar.
-            texto_segundo_lugar = fonte_principal(35).render(f"2nd", False, '#44b528')
-            self.screen.blit(texto_segundo_lugar, (190, 275))
-
-            #Adiciona na tela a pontuação em terceiro lugar.
-            texto_terceiro_lugar = fonte_principal(35).render(f"3rd", False, '#44b528')
-            self.screen.blit(texto_terceiro_lugar, (190, 315))
-
         adiciona_conteudo_estatico()
         adiciona_conteudo_dinamico()
         
